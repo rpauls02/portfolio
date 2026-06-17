@@ -49,7 +49,7 @@ export const siteConfig = {
       skills: ["MATLAB"],
     },
     {
-      name: "RaceSight",
+      name: "RaceSight (WIP)",
       description:
         "A robust detection system for motorsport vehicles in mainstream racing categories including Formula, Prototype and GT3.",
       link: "https://github.com/rpauls02/RaceSight",
