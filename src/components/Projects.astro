@@ -5,7 +5,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 
 {
   hasProjects && (
-    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #2a292f;">
+    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #34333a;">
       <div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           <div class="lg:col-span-4">
@@ -13,7 +13,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
               Projects
             </h2>
             <div
-              class="w-[75px] h-[5px] mt-2 rounded-full"
+              class="w-[85px] h-[5px] mt-2 rounded-full"
               style={`background-color: ${siteConfig.accentColor}`}
             />
           </div>
@@ -34,25 +34,25 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                   <div class="group relative">
                     <Component
                       {...linkProps}
-                      class={`flex flex-col h-full relative p-4 sm:p-5 rounded-xl border border-gray-700 transition-all duration-300 ${
+                      class={`flex flex-col h-full relative p-4 sm:p-5 rounded-xl border border-gray-500 transition-all duration-300 ${
                         project.link
-                          ? "hover:border-gray-500 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
+                          ? "hover:border-gray-300 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
                           : ""
                       }`}
-                      style={`background-color: #35343b;`}
+                      style={`background-color: #44434D;`}
                       onmouseenter={`
-                        this.querySelector('.arrow-btn')?.style.setProperty('background-color', '${siteConfig.accentColor}');
-                        this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 35%, transparent)'));
+                        this.querySelector('.arrow-btn')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
+                        this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
                       `}
                       onmouseleave={`
-                        this.querySelector('.arrow-btn')?.style.setProperty('background-color', '${siteConfig.accentColor}99');
-                        this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 20%, transparent)'));
+                        this.querySelector('.arrow-btn')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 40%, transparent)');
+                        this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)'));
                       `}
                     >
                       {project.link && (
                         <div
-                          class="arrow-btn absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full text-white transition-all duration-300"
-                          style={`background-color: ${siteConfig.accentColor}99;`}
+                          class="arrow-btn absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-xl text-white transition-all duration-300"
+                          style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 40%, transparent);`}
                         >
                           <svg
                             class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -78,7 +78,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           >
                             0{index + 1}
                           </span>
-                          <h3 class="text-base sm:text-lg font-bold text-gray-100 mt-0.5 pr-8">
+                          <h3 class="text-base sm:text-lg font-bold text-gray-200 mt-0.5 pr-8">
                             {project.name}
                           </h3>
                         </div>
@@ -91,8 +91,8 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           <div class="flex flex-wrap gap-1.5 pt-1">
                             {project.skills.map((skill) => (
                               <span
-                                class="skill-tag px-2 py-1 rounded-md text-xs font-medium transition-all duration-300"
-                                style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 20%, transparent); color: white;`}
+                                class="skill-tag px-2 py-1 rounded-md text-xs font-medium transition-all duration-300 text-gray-300"
+                                style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent);`}
                               >
                                 {skill}
                               </span>

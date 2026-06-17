@@ -4,7 +4,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 ---
 {
   hasExperience && (
-    <section id="experience" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #2a292f;">
+    <section id="experience" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #34333a;">
       <div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           <div class="lg:col-span-4">
@@ -12,7 +12,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
               Experience
             </h2>
             <div
-              class="w-[75px] h-[5px] mt-2 rounded-full"
+              class="w-[85px] h-[5px] mt-2 rounded-xl"
               style={`background-color: ${siteConfig.accentColor}`}
             />
           </div>
@@ -22,7 +22,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                 <div class="relative mb-12 last:mb-0">
                   {/* Timeline dot at top of card */}
                   <div
-                    class="absolute left-1/2 -top-2 w-4 h-4 border-2 rounded-full -translate-x-1/2 z-20 transition-all duration-300"
+                    class="absolute left-1/2 -top-2 w-4 h-4 border-2 rounded-xl -translate-x-1/2 z-20 transition-all duration-300"
                     style={`border-color: ${siteConfig.accentColor}; background-color: ${siteConfig.accentColor}`}
                   />
                   {/* Connecting line below card */}
@@ -30,7 +30,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                     <div class="absolute left-1/2 bottom-0 w-0.5 h-12 bg-gray-600 -translate-x-1/2 translate-y-full z-10" />
                   )}
                   {/* Experience card */}
-                  <div class="rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6 hover:border-gray-500 transition-colors duration-300" style="background-color: #35343b;">
+                  <div class="rounded-lg border border-gray-500 p-4 sm:p-5 md:p-6 hover:border-gray-300 transition-colors duration-300" style="background-color: #44434D;">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
                       <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-100">
@@ -43,7 +43,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                           {exp.company}
                         </p>
                       </div>
-                      <span class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0">
+                      <span class="text-xs sm:text-sm text-gray-400 mt-2 sm:mt-0">
                         {exp.dateRange}
                       </span>
                     </div>
@@ -51,7 +51,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                       {exp.bullets.map((bullet) => (
                         <li class="flex items-start">
                           <span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-500 mt-2 mr-3 flex-shrink-0" />
-                          <span class="text-sm sm:text-base text-gray-400">
+                          <span class="text-sm sm:text-base text-gray-300">
                             {bullet}
                           </span>
                         </li>

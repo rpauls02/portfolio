@@ -6,8 +6,38 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 ---
 
-<footer class="relative border-t border-gray-700" style="background-color: #2a292f;">
-  <div class="mx-auto max-w-6xl px-6 py-12 lg:px-8">
+<footer class="relative border-t overflow-hidden" style={`background-color: #34333a; border-color: color-mix(in srgb, ${siteConfig.accentColor} 40%, transparent);`}>
+
+  <!-- Decorative pattern -->
+  <div class="absolute inset-0 pointer-events-none">
+    <svg
+      aria-hidden="true"
+      class="absolute bottom-0 left-0 w-full h-full"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <pattern
+          id="footer-pattern"
+          x="0"
+          y="0"
+          width="100"
+          height="100"
+          patternUnits="userSpaceOnUse"
+        >
+          <path
+            d="M0 50 Q 25 40, 50 50 T 100 50"
+            stroke={siteConfig.accentColor}
+            stroke-width="1"
+            fill="none"
+            opacity="0.15"
+          ></path>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#footer-pattern)"></rect>
+    </svg>
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-6 py-12 lg:px-8">
     <div
       class="flex flex-col md:flex-row md:items-center md:justify-between gap-8"
     >
@@ -169,14 +199,16 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
         <nav class="flex gap-x-8">
           <a
             href="#about"
-            class="text-sm text-gray-400 hover:text-gray-100 transition-colors"
+            class="text-sm text-gray-400 transition-colors duration-300 hover:text-[var(--accent-color)]"
+            style={`--accent-color: ${siteConfig.accentColor}`}
             >About</a
           >
           {
             hasProjects && (
               <a
                 href="#projects"
-                class="text-sm text-gray-400 hover:text-gray-100 transition-colors"
+                class="text-sm text-gray-400 transition-colors duration-300 hover:text-[var(--accent-color)]"
+                style={`--accent-color: ${siteConfig.accentColor}`}
               >
                 Projects
               </a>
@@ -186,7 +218,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
             hasExperience && (
               <a
                 href="#experience"
-                class="text-sm text-gray-400 hover:text-gray-100 transition-colors"
+                class="text-sm text-gray-400 transition-colors duration-300 hover:text-[var(--accent-color)]"
+                style={`--accent-color: ${siteConfig.accentColor}`}
               >
                 Experience
               </a>
@@ -196,7 +229,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
             hasEducation && (
               <a
                 href="#education"
-                class="text-sm text-gray-400 hover:text-gray-100 transition-colors"
+                class="text-sm text-gray-400 transition-colors duration-300 hover:text-[var(--accent-color)]"
+                style={`--accent-color: ${siteConfig.accentColor}`}
               >
                 Education
               </a>
@@ -209,30 +243,5 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
         </p>
       </div>
     </div>
-  </div>
-
-  <!-- Decorative pattern -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
-    <svg
-      aria-hidden="true"
-      class="absolute bottom-0 left-0 w-full h-24 text-gray-700"
-    >
-      <pattern
-        id="footer-pattern"
-        x="0"
-        y="0"
-        width="100"
-        height="100"
-        patternUnits="userSpaceOnUse"
-      >
-        <path
-          d="M0 50 Q 25 40, 50 50 T 100 50"
-          stroke="currentColor"
-          stroke-width="0.5"
-          fill="none"
-          opacity="0.4"></path>
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#footer-pattern)"></rect>
-    </svg>
   </div>
 </footer>

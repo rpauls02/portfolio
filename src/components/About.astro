@@ -2,7 +2,7 @@
 import { siteConfig } from "../config";
 ---
 
-<section id="about" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #2a292f;">
+<section id="about" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #34333a;">
   <div>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
       <div class="lg:col-span-4">
@@ -12,20 +12,29 @@ import { siteConfig } from "../config";
           About Me
         </h2>
         <div
-          class="w-[75px] h-[5px] mt-2 rounded-full"
+          class="w-[85px] h-[5px] mt-2 rounded-xl"
           style={`background-color: ${siteConfig.accentColor}`}
         >
         </div>
       </div>
       <div class="lg:col-span-8 space-y-8">
-        <p class="text-lg sm:text-xl md:text-2xl leading-relaxed text-gray-400">
-          {siteConfig.aboutMe}
+        <p class="text-xl sm:text-xl md:text-xl leading-relaxed text-gray-300">
+          {siteConfig.aboutMe.map((paragraph) => (
+            <p class="text-xl sm:text-xl md:text-xl leading-relaxed text-gray-300">
+              {paragraph}
+            </p>
+          ))}
         </p>
         <div class="pt-4">
           <div class="flex flex-wrap gap-3">
             {
               siteConfig.skills.map((skill) => (
-                <span class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-700 text-gray-200 rounded-full text-sm sm:text-base md:text-lg font-medium hover:bg-gray-600 transition-colors duration-200">
+                <span
+                  class="px-3 sm:px-4 py-1.5 sm:py-2 text-gray-300 rounded-xl text-sm sm:text-base md:text-lg font-medium transition-all duration-300"
+                  style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent);`}
+                  onmouseenter={`this.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)')`}
+                  onmouseleave={`this.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)')`}
+                >
                   {skill}
                 </span>
               ))
