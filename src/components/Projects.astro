@@ -39,10 +39,21 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           ? "hover:border-gray-500 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
                           : ""
                       }`}
-                      style="background-color: #35343b;"
+                      style={`background-color: #35343b;`}
+                      onmouseenter={`
+                        this.querySelector('.arrow-btn')?.style.setProperty('background-color', '${siteConfig.accentColor}');
+                        this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 35%, transparent)'));
+                      `}
+                      onmouseleave={`
+                        this.querySelector('.arrow-btn')?.style.setProperty('background-color', '${siteConfig.accentColor}99');
+                        this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 20%, transparent)'));
+                      `}
                     >
                       {project.link && (
-                        <div class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-600 rounded-full text-white transition-all duration-300 group-hover:bg-gray-500">
+                        <div
+                          class="arrow-btn absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full text-white transition-all duration-300"
+                          style={`background-color: ${siteConfig.accentColor}99;`}
+                        >
                           <svg
                             class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                             fill="none"
@@ -72,7 +83,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           </h3>
                         </div>
 
-                        <p class="text-sm text-gray-400 leading-relaxed flex-1">
+                        <p class="text-sm text-gray-300 leading-relaxed flex-1">
                           {project.description}
                         </p>
 
@@ -80,9 +91,8 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           <div class="flex flex-wrap gap-1.5 pt-1">
                             {project.skills.map((skill) => (
                               <span
-                                class={`px-2 py-1 bg-gray-700 text-gray-200 rounded-md text-xs font-medium transition-all duration-300 ${
-                                  project.link ? "group-hover:bg-gray-600" : ""
-                                }`}
+                                class="skill-tag px-2 py-1 rounded-md text-xs font-medium transition-all duration-300"
+                                style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 20%, transparent); color: white;`}
                               >
                                 {skill}
                               </span>
