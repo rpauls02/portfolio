@@ -4,24 +4,20 @@ export const siteConfig = {
   description: "Portfolio website of Ryan Fitzgerald",
   accentColor: "#7777ff",
   social: {
-    email: "rpauls2002@gmail.com",
     linkedin: "https://linkedin.com/in/rpauls02",
     github: "https://github.com/rpauls02",
+    discord: "https://discord.com/users/116657724967616518",
   },
-  aboutMe: "",
+  aboutMe: [
+    "Software engineer with a passion for building things end-to-end; from cloud infrastructure and backend APIs to polished frontend experiences. My projects span full-stack web development, machine learning, and computer vision, and I've shipped real systems to production on Google Cloud. Outside of code, I run a small PC repair business and follow Formula 1 closely enough that I built a statistics platform around it.",
+    "On the web side, I'm most at home with React and TypeScript on the frontend, with Python or Node.js handling the backend. I've deployed production apps on Firebase and Google Cloud Run, set up CI/CD pipelines, and worked with both SQL and NoSQL databases depending on what the job needs.",
+    "When I'm not writing code, I'm probably diagnosing someone's PC, reading about the latest GPU architecture, or watching a race and wondering why the strategy team made that call."],
   skills: [
-    "Python",
-    "TypeScript",
-    "Node.js",
-    "SQL",
-    "NLTK",
-    "NumPy",
-    "OpenCV",
-    "Pandas",
-    "PyTorch",
-    "Roboflow",
-    "Scikit",
-    "YOLO",
+    "Software Engineering",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Full-stack Applications",
+    "Hardware",
   ],
   projects: [
     {
@@ -34,40 +30,39 @@ export const siteConfig = {
     {
       name: "F1Detect",
       description:
-        "Computer vision pipeline leveraging YOLO's state-of-the-art object detection model, trained on a custom-made dataset, for detecting and tracking Formula 1 cars in static and real-time imagery.",
+        "YOLO-based object detection pipeline trained on a custom dataset to track Formula 1 cars in static and real-time footage, achieving over 90% accuracy across varying conditions.",
       link: "https://github.com/rpauls02/F1Detect",
       skills: ["Python", "Roboflow", "YOLO"],
-      video: "https://youtu.be/Eezjer004OM",
     },
     {
-      name: "PhishDetector",
+      name: "PhishingDet",
       description:
-        "NLP pipeline making use of persuasion detecton and CBOW embeddings for filtering out phishing in 18000+ Enron emails. Includes advanced preprocessing and error analysis.",
+        "Phishing classifier using CBOW embeddings trained on 18,000+ Enron emails, achieving 96% accuracy. Integrated persuasion-pattern detection alongside semantic classification.",
       link: "https://github.com/rpauls02/PhishingDet",
-      skills: ["Python", "NLTK", "Scikit", "PyTorch"],
+      skills: ["NLP", "Python", "NLTK", "Scikit", "PyTorch"],
     },
     {
       name: "Earthquake Magnitude Prediction",
-      description: "A dabble into regressive statistical ML algorithms. Preprocessing and error analysis included.",
+      description:
+        "A dabble into regressive statistical ML algorithms. Preprocessing and error analysis included.",
       link: "https://github.com/rpauls02/Earthquake-Magnitude-Prediction",
       skills: ["MATLAB"],
     },
     {
       name: "RaceSight",
-      description: "A robust detection system for motorsport vehicles in mainstream racing categories including Formula, Prototype and GT3.",
+      description:
+        "A robust detection system for motorsport vehicles in mainstream racing categories including Formula, Prototype and GT3.",
       link: "https://github.com/rpauls02/RaceSight",
-      skills: ["Python", "Roboflow"]
-    }
+      skills: ["Python", "Roboflow"],
+    },
   ],
   experience: [
     {
-      company: "Company",
-      title: "Role",
-      dateRange: "MMM/YYYY - Present",
+      company: "Computer Repairs",
+      title: "Technician",
+      dateRange: "Aug 2022 - Present",
       bullets: [
-        "Led development of microservices architecture serving 1M+ users",
-        "Reduced API response times by 40% through optimization",
-        "Mentored team of 5 junior developers",
+        "Small online business assembling and repairing computer systems",
       ],
     },
   ],
@@ -75,11 +70,8 @@ export const siteConfig = {
     {
       school: "City St George's, University of London",
       degree: "MSci Computer Science",
-      dateRange: "2021 - 2026",
-      achievements: [
-        "Graduated 2:1",
-        "Experience with AI/ML and Full-stack Software Engineering",
-      ],
+      dateRange: "Oct 2021 - June 2026",
+      achievements: ["2:1", "Experienced in AI/ML and Software Engineering"],
     },
   ],
 };
