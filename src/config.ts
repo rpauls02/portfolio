@@ -1,7 +1,6 @@
 export const siteConfig = {
   name: "Robert Pauls",
   title: "Software Engineer",
-  description: "Portfolio website of Ryan Fitzgerald",
   accentColor: "#7777ff",
   social: {
     linkedin: "https://linkedin.com/in/rpauls02",
