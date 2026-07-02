@@ -70,7 +70,7 @@ export const siteConfig = {
       school: "City St George's, University of London",
       degree: "BSc Computer Science",
       dateRange: "Oct 2021 - June 2026",
-      achievements: ["2:1", "Experienced in AI/ML and Software Engineering"],
+      achievements: ["2:1", "Experienced with AI/ML and Software Engineering"],
     },
   ],
 };
