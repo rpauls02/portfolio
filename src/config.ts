@@ -68,7 +68,7 @@ export const siteConfig = {
   education: [
     {
       school: "City St George's, University of London",
-      degree: "MSci Computer Science",
+      degree: "BSc Computer Science",
       dateRange: "Oct 2021 - June 2026",
       achievements: ["2:1", "Experienced in AI/ML and Software Engineering"],
     },
