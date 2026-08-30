@@ -5,20 +5,20 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 
 {
   hasProjects && (
-    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24" style="background-color: #34333a;">
-      <div>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-          <div class="lg:col-span-4">
+    <section id="projects" class="py-8 sm:py-12 md:py-16 lg:py-24" style="background-color: #34333a;">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="flex flex-col gap-8 lg:gap-12">
+          <div>
             <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-100">
               Projects
             </h2>
             <div
-              class="w-[85px] h-[5px] mt-2 rounded-full"
+              class="w-[400px] h-[5px] mt-2 rounded-full"
               style={`background-color: ${siteConfig.accentColor}`}
             />
           </div>
 
-          <div class="lg:col-span-8">
+          <div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {siteConfig.projects.map((project, index) => {
                 const Component = project.link ? "a" : "div";
