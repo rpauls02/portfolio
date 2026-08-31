@@ -17,42 +17,42 @@ export const siteConfig = {
     "Machine Learning",
     "Full-stack Applications",
     "Hardware",
-  ],
+  ], 
   projects: [
     {
       name: "F1StatFinder",
       description:
         "Delve into a vast range of Formula One statistics from driver's points to the sport's circuit history, and create your own insights, all using data available since the first championship.",
       link: "https://f1statfinder.web.app",
-      skills: ["GCP", "Firebase", "Flask", "React", "Typescript", "CSS"],
+      skills: ["Web Development", "GCP", "Firebase", "Flask", "React", "Typescript", "CSS"],
     },
     {
       name: "F1Detect",
       description:
         "YOLO-based object detection pipeline trained on a custom dataset to track Formula 1 cars in static and real-time footage, achieving over 90% accuracy across varying conditions.",
       link: "https://github.com/rpauls02/F1Detect",
-      skills: ["Python", "Roboflow", "YOLO"],
+      skills: ["Object Detection", "Python", "Roboflow", "YOLO"],
     },
     {
       name: "PhishingDet",
       description:
         "Phishing classifier using CBOW embeddings trained on 18,000+ Enron emails, achieving 96% accuracy. Integrated persuasion-pattern detection alongside semantic classification.",
       link: "https://github.com/rpauls02/PhishingDet",
-      skills: ["NLP", "Python", "NLTK", "Scikit", "PyTorch"],
+      skills: ["Natural Language Processing(NLP)", "Python", "NLTK", "Scikit", "PyTorch"],
     },
     {
       name: "Earthquake Magnitude Prediction",
       description:
         "A dabble into regressive statistical ML algorithms. Preprocessing and error analysis included.",
       link: "https://github.com/rpauls02/Earthquake-Magnitude-Prediction",
-      skills: ["MATLAB"],
+      skills: ["Machine Learning", "Statistical Reasoning", "MATLAB"],
     },
     {
       name: "RaceSight (WIP)",
       description:
         "A robust detection system for motorsport vehicles in mainstream racing categories including Formula, Prototype and GT3.",
       link: "https://github.com/rpauls02/RaceSight",
-      skills: ["Python", "Roboflow"],
+      skills: ["Object Detection", "Python", "Roboflow"],
     },
   ],
   experience: [
@@ -76,7 +76,7 @@ export const siteConfig = {
       subjects2: "Systems Architecture, Operating Systems, Theory of Computation, Cloud Computing",
       subjects3: "Computer Vision, Machine Learning, Natural Language Processing",
       subjects4: "Objected-oriented Analysis and Design",
-      skills: ["Haskell", "C++", "Python", "TypeScript", "JavaScript", "SQL", "React", "Node.js", "YOLO"],
+      skills: ["Haskell", "C++", "Python", "Java", "TypeScript", "JavaScript", "SQL", "React", "Node.js", "YOLO"],
 
     },
   ],
