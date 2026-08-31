@@ -8,7 +8,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
   id="header"
   class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300"
 >
-  <nav class="max-w-7xl mx-auto px-8 py-4">
+  <nav class="max-w-6xl mx-auto px-6 lg:px-8 py-4">
     <ul class="flex items-center gap-8 justify-center">
       <li>
         <a
@@ -61,16 +61,162 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
     </ul>
   </nav>
 </header>
+
+<div
+  id="mobile-header"
+  class="fixed top-0 left-0 right-0 z-50 md:hidden transition-all duration-300"
+>
+  <div class="flex items-center justify-end px-6 py-4">
+    <button
+      id="mobile-menu-button"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="text-gray-300 p-2 -mr-2"
+      style={`--accent-color: ${siteConfig.accentColor}`}
+    >
+      <svg
+        id="menu-icon-open"
+        xmlns="http://www.w3.org/2000/svg"
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg
+        id="menu-icon-close"
+        xmlns="http://www.w3.org/2000/svg"
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="hidden"
+      >
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <div
+    id="mobile-menu"
+    class="hidden flex-col items-center gap-6 pb-6 pt-2 text-lg"
+  >
+    <a
+      href="#about"
+      data-mobile-link
+      class="text-gray-300 transition-colors duration-300 font-medium hover:text-[var(--accent-color)]"
+      style={`--accent-color: ${siteConfig.accentColor}`}
+    >
+      About
+    </a>
+    {
+      hasProjects && (
+        <a
+          href="#projects"
+          data-mobile-link
+          class="text-gray-300 transition-colors duration-300 font-medium hover:text-[var(--accent-color)]"
+          style={`--accent-color: ${siteConfig.accentColor}`}
+        >
+          Projects
+        </a>
+      )
+    }
+    {
+      hasExperience && (
+        <a
+          href="#experience"
+          data-mobile-link
+          class="text-gray-300 transition-colors duration-300 font-medium hover:text-[var(--accent-color)]"
+          style={`--accent-color: ${siteConfig.accentColor}`}
+        >
+          Experience
+        </a>
+      )
+    }
+    {
+      hasEducation && (
+        <a
+          href="#education"
+          data-mobile-link
+          class="text-gray-300 transition-colors duration-300 font-medium hover:text-[var(--accent-color)]"
+          style={`--accent-color: ${siteConfig.accentColor}`}
+        >
+          Education
+        </a>
+      )
+    }
+  </div>
+</div>
 <script>
+  const header = document.getElementById("header");
+  const mobileHeader = document.getElementById("mobile-header");
+
   window.addEventListener("scroll", () => {
-    const header = document.getElementById("header");
     if (window.scrollY > 100) {
       header?.classList.add("backdrop-blur-sm");
       header?.style.setProperty("background-color", "rgba(52, 51, 58, 0.85)");
+      mobileHeader?.classList.add("backdrop-blur-sm");
+      mobileHeader?.style.setProperty(
+        "background-color",
+        "rgba(52, 51, 58, 0.85)"
+      );
     } else {
       header?.classList.remove("backdrop-blur-sm");
       header?.style.removeProperty("background-color");
+      mobileHeader?.classList.remove("backdrop-blur-sm");
+      mobileHeader?.style.removeProperty("background-color");
     }
+  });
+
+  const menuButton = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("menu-icon-open");
+  const iconClose = document.getElementById("menu-icon-close");
+
+  const closeMenu = () => {
+    menu?.classList.add("hidden");
+    menu?.classList.remove("flex");
+    iconOpen?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+    menuButton?.setAttribute("aria-expanded", "false");
+    mobileHeader?.style.removeProperty("background-color");
+    if (window.scrollY > 100) {
+      mobileHeader?.style.setProperty(
+        "background-color",
+        "rgba(52, 51, 58, 0.85)"
+      );
+    }
+  };
+
+  menuButton?.addEventListener("click", () => {
+    const isOpen = menu?.classList.contains("flex");
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu?.classList.remove("hidden");
+      menu?.classList.add("flex");
+      iconOpen?.classList.add("hidden");
+      iconClose?.classList.remove("hidden");
+      menuButton.setAttribute("aria-expanded", "true");
+      mobileHeader?.style.setProperty(
+        "background-color",
+        "rgba(52, 51, 58, 0.97)"
+      );
+    }
+  });
+
+  document.querySelectorAll("[data-mobile-link]").forEach((link) => {
+    link.addEventListener("click", closeMenu);
   });
 </script>
 <style>

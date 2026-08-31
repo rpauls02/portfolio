@@ -1,5 +1,7 @@
 ---
+import { Icon } from "astro-icon/components";
 import { siteConfig } from "../config";
+import { skillIcons } from "../lib/skillIcons";
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 ---
 {
@@ -12,40 +14,93 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
               Education
             </h2>
             <div
-              class="w-[450px] h-[5px] mt-2 rounded-xl"
+              class="w-full h-[5px] mt-2 rounded-xl"
               style={`background-color: ${siteConfig.accentColor}`}
             />
           </div>
           <div>
             <div class="space-y-8">
               {siteConfig.education.map((edu) => (
-                <div class="rounded-xl border border-gray-500 p-4 sm:p-5 md:p-6 hover:border-gray-300 transition-colors duration-300" style="background-color: #44434D;">
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
-                    <div>
-                      <h3 class="text-lg sm:text-xl font-semibold text-gray-100">
-                        {edu.degree}
-                      </h3>
-                      <p
-                        class="text-base sm:text-lg"
-                        style={`color: ${siteConfig.accentColor}`}
-                      >
-                        {edu.school}
-                      </p>
+                <div
+                  class="group relative flex flex-col rounded-xl border border-gray-500 p-4 sm:p-5 md:p-6 transition-all duration-300 hover:border-gray-300 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
+                  style="background-color: #44434D;"
+                  onmouseenter={`
+                    this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
+                    this.querySelectorAll('.edu-highlight').forEach(el => el.style.setProperty('color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, white)'));
+                  `}
+                  onmouseleave={`
+                    this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)'));
+                    this.querySelectorAll('.edu-highlight').forEach(el => el.style.setProperty('color', '${siteConfig.accentColor}'));
+                  `}
+                >
+                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
+                    <div class="flex items-center gap-3 sm:gap-4">
+                      {edu.logo && (
+                        <img
+                          src={edu.logo}
+                          alt={`${edu.school} logo`}
+                          class="h-14 w-14 sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem] object-contain flex-shrink-0"
+                        />
+                      )}
+                      <div>
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-100">
+                          {edu.degree}
+                        </h3>
+                        <p
+                          class="edu-highlight text-base sm:text-lg transition-colors duration-300"
+                          style={`color: ${siteConfig.accentColor}`}
+                        >
+                          {edu.honours}
+                        </p>
+                        <p
+                          class="edu-highlight text-base sm:text-lg transition-colors duration-300"
+                          style={`color: ${siteConfig.accentColor}`}
+                        >
+                          {edu.school}
+                        </p>
+                      </div>
                     </div>
-                    <span class="text-xs sm:text-sm text-gray-400 mt-2 sm:mt-0">
+                    <span class="text-xs sm:text-sm text-gray-400 sm:mt-0">
                       {edu.dateRange}
                     </span>
                   </div>
-                  <ul class="space-y-2">
-                    {edu.achievements.map((achievement) => (
+                  <div class="flex flex-col gap-3">
+                    <ul class="space-y-2">
                       <li class="flex items-start">
                         <span class="inline-block w-1.5 h-1.5 rounded-xl bg-gray-500 mt-2 mr-3 flex-shrink-0" />
                         <span class="text-sm sm:text-base text-gray-300">
-                          {achievement}
+                          {edu.subjects1}
                         </span>
                       </li>
-                    ))}
-                  </ul>
+                      <li class="flex items-start">
+                        <span class="inline-block w-1.5 h-1.5 rounded-xl bg-gray-500 mt-2 mr-3 flex-shrink-0" />
+                        <span class="text-sm sm:text-base text-gray-300">
+                          {edu.subjects2}
+                        </span>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="inline-block w-1.5 h-1.5 rounded-xl bg-gray-500 mt-2 mr-3 flex-shrink-0" />
+                        <span class="text-sm sm:text-base text-gray-300">
+                          {edu.subjects3}
+                        </span>
+                      </li>
+                    </ul>
+                    {edu.skills && edu.skills.length > 0 && (
+                      <div class="flex flex-wrap gap-1.5">
+                        {edu.skills.map((skill) => (
+                          <span
+                            class="skill-tag flex items-center gap-1.5 px-2 py-1 rounded-md text-sm font-medium transition-all duration-300 text-gray-300"
+                            style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent);`}
+                          >
+                            {skillIcons[skill] && (
+                              <Icon name={skillIcons[skill]} class="w-3.5 h-3.5 flex-shrink-0" />
+                            )}
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

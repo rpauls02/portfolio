@@ -67,10 +67,17 @@ export const siteConfig = {
   ],
   education: [
     {
+      logo: "/public/City-St-Georges-Logo-Primary-Internal.png",
       school: "City St George's, University of London",
       degree: "BSc Computer Science",
-      dateRange: "Oct 2021 - June 2026",
-      achievements: ["2:1", "Experienced with AI/ML and Software Engineering"],
+      honours: "2:1",
+      dateRange: "Sept 2021 - June 2026",
+      subjects1: "Advanced Databases, Data Structures and Algorithms",
+      subjects2: "Systems Architecture, Operating Systems, Theory of Computation, Cloud Computing",
+      subjects3: "Computer Vision, Machine Learning, Natural Language Processing",
+      subjects4: "Objected-oriented Analysis and Design",
+      skills: ["Haskell", "C++", "Python", "TypeScript", "JavaScript", "SQL", "React", "Node.js", "YOLO"],
+
     },
   ],
 };

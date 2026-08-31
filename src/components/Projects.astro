@@ -1,5 +1,7 @@
 ---
+import { Icon } from "astro-icon/components";
 import { siteConfig } from "../config";
+import { skillIcons } from "../lib/skillIcons";
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 ---
 
@@ -13,7 +15,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
               Projects
             </h2>
             <div
-              class="w-[400px] h-[5px] mt-2 rounded-full"
+              class="w-full h-[5px] mt-2 rounded-full"
               style={`background-color: ${siteConfig.accentColor}`}
             />
           </div>
@@ -91,9 +93,12 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           <div class="flex flex-wrap gap-1.5 pt-1">
                             {project.skills.map((skill) => (
                               <span
-                                class="skill-tag px-2 py-1 rounded-md text-xs font-medium transition-all duration-300 text-gray-300"
+                                class="skill-tag flex items-center gap-1.5 px-2 py-1 rounded-md text-sm font-medium transition-all duration-300 text-gray-300"
                                 style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent);`}
                               >
+                                {skillIcons[skill] && (
+                                  <Icon name={skillIcons[skill]} class="w-3.5 h-3.5 flex-shrink-0" />
+                                )}
                                 {skill}
                               </span>
                             ))}
