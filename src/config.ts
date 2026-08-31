@@ -76,7 +76,7 @@ export const siteConfig = {
       subjects2: "Systems Architecture, Operating Systems, Theory of Computation, Cloud Computing",
       subjects3: "Computer Vision, Machine Learning, Natural Language Processing",
       subjects4: "Objected-oriented Analysis and Design",
-      skills: ["Haskell", "C++", "Python", "Java", "TypeScript", "JavaScript", "SQL", "React", "Node.js", "YOLO"],
+      skills: ["C++", "Haskell", "Java", "JavaScript", "Node.js", "NoSQL", "Python", "React", "SQL", "TypeScript", "YOLO"],
 
     },
   ],

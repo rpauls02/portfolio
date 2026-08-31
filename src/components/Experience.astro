@@ -35,12 +35,16 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                     style="background-color: #44434D;"
                     onmouseenter={`
                       this.querySelectorAll('.exp-highlight').forEach(el => el.style.setProperty('color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, white)'));
+                      this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
+                      this.querySelector('.date-highlight')?.style.setProperty('color', '#e5e7eb');
                     `}
                     onmouseleave={`
                       this.querySelectorAll('.exp-highlight').forEach(el => el.style.setProperty('color', '${siteConfig.accentColor}'));
+                      this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)');
+                      this.querySelector('.date-highlight')?.style.setProperty('color', '');
                     `}
                   >
-                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-3">
                       <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-100">
                           {exp.title}
@@ -52,10 +56,14 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                           {exp.company}
                         </p>
                       </div>
-                      <span class="text-xs sm:text-sm text-gray-400 sm:mt-0">
+                      <span class="date-highlight text-xs sm:text-sm text-gray-400 sm:mt-0 transition-colors duration-300">
                         {exp.dateRange}
                       </span>
                     </div>
+                    <div
+                      class="accent-bar w-full h-[2px] mb-3 rounded-full transition-colors duration-300"
+                      style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)`}
+                    />
                     <ul class="space-y-2">
                       {exp.bullets.map((bullet) => (
                         <li class="flex items-start">

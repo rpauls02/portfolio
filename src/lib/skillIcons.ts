@@ -17,6 +17,8 @@ export const skillIcons: Record<string, string> = {
   "C++": "simple-icons:cplusplus",
   Haskell: "simple-icons:haskell",
   Java: "simple-icons:openjdk",
+  Roboflow: "simple-icons:roboflow",
+  YOLO: "simple-icons:yolo",
 
   // Generic domain/field labels (no single brand logo, use a representative icon)
   "Machine Learning": "mdi:brain",
@@ -25,4 +27,6 @@ export const skillIcons: Record<string, string> = {
   "Object Detection": "mdi:image-search-outline",
   "Natural Language Processing(NLP)": "mdi:message-text-outline",
   "Web Development": "mdi:web",
+  SQL: "mdi:database",
+  NoSQL: "mdi:database-outline",
 };

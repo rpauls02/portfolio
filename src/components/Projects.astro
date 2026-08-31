@@ -45,10 +45,12 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                       onmouseenter={`
                         this.querySelector('.arrow-btn')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
                         this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
+                        this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
                       `}
                       onmouseleave={`
                         this.querySelector('.arrow-btn')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 40%, transparent)');
                         this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)'));
+                        this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)');
                       `}
                     >
                       {project.link && (
@@ -83,6 +85,10 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           <h3 class="text-base sm:text-lg font-bold text-gray-200 mt-0.5 pr-8">
                             {project.name}
                           </h3>
+                          <div
+                            class="accent-bar w-full h-[2px] mt-2 rounded-full transition-colors duration-300"
+                            style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)`}
+                          />
                         </div>
 
                         <p class="text-sm sm:text-base text-gray-300 leading-relaxed flex-1">

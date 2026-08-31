@@ -27,13 +27,17 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
                   onmouseenter={`
                     this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
                     this.querySelectorAll('.edu-highlight').forEach(el => el.style.setProperty('color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, white)'));
+                    this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
+                    this.querySelector('.date-highlight')?.style.setProperty('color', '#e5e7eb');
                   `}
                   onmouseleave={`
                     this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)'));
                     this.querySelectorAll('.edu-highlight').forEach(el => el.style.setProperty('color', '${siteConfig.accentColor}'));
+                    this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)');
+                    this.querySelector('.date-highlight')?.style.setProperty('color', '');
                   `}
                 >
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
+                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-3">
                     <div class="flex items-center gap-3 sm:gap-4">
                       {edu.logo && (
                         <img
@@ -60,10 +64,14 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
                         </p>
                       </div>
                     </div>
-                    <span class="text-xs sm:text-sm text-gray-400 sm:mt-0">
+                    <span class="date-highlight text-xs sm:text-sm text-gray-400 sm:mt-0 transition-colors duration-300">
                       {edu.dateRange}
                     </span>
                   </div>
+                  <div
+                    class="accent-bar w-full h-[2px] mb-3 rounded-full transition-colors duration-300"
+                    style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)`}
+                  />
                   <div class="flex flex-col gap-3">
                     <ul class="space-y-2">
                       <li class="flex items-start">
