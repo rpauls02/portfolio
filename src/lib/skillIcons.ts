@@ -1,5 +1,6 @@
 // Maps skill names to iconify icon identifiers (astro-icon). Skills without a
-// real brand logo are simply omitted and render as plain text tags.
+// real brand logo or a fitting generic icon are simply omitted and render as
+// plain text tags.
 export const skillIcons: Record<string, string> = {
   GCP: "simple-icons:googlecloud",
   Firebase: "simple-icons:firebase",
@@ -15,4 +16,13 @@ export const skillIcons: Record<string, string> = {
   Scikit: "simple-icons:scikitlearn",
   "C++": "simple-icons:cplusplus",
   Haskell: "simple-icons:haskell",
+  Java: "simple-icons:openjdk",
+
+  // Generic domain/field labels (no single brand logo, use a representative icon)
+  "Machine Learning": "mdi:brain",
+  "Artificial Intelligence": "mdi:robot-outline",
+  "Statistical Reasoning": "mdi:chart-bell-curve",
+  "Object Detection": "mdi:image-search-outline",
+  "Natural Language Processing(NLP)": "mdi:message-text-outline",
+  "Web Development": "mdi:web",
 };
