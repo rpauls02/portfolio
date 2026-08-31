@@ -30,20 +30,29 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                     <div class="absolute left-1/2 bottom-0 w-0.5 h-12 bg-gray-600 -translate-x-1/2 translate-y-full z-10" />
                   )}
                   {/* Experience card */}
-                  <div class="rounded-lg border border-gray-500 p-4 sm:p-5 md:p-6 hover:border-gray-300 transition-colors duration-300" style="background-color: #44434D;">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                  <div
+                    class="rounded-lg border border-gray-500 p-4 sm:p-5 md:p-6 transition-all duration-300 hover:border-gray-300 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
+                    style="background-color: #44434D;"
+                    onmouseenter={`
+                      this.querySelectorAll('.exp-highlight').forEach(el => el.style.setProperty('color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, white)'));
+                    `}
+                    onmouseleave={`
+                      this.querySelectorAll('.exp-highlight').forEach(el => el.style.setProperty('color', '${siteConfig.accentColor}'));
+                    `}
+                  >
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
                       <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-100">
                           {exp.title}
                         </h3>
                         <p
-                          class="text-base sm:text-lg"
+                          class="exp-highlight text-base sm:text-lg transition-colors duration-300"
                           style={`color: ${siteConfig.accentColor}`}
                         >
                           {exp.company}
                         </p>
                       </div>
-                      <span class="text-xs sm:text-sm text-gray-400 mt-2 sm:mt-0">
+                      <span class="text-xs sm:text-sm text-gray-400 sm:mt-0">
                         {exp.dateRange}
                       </span>
                     </div>
