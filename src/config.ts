@@ -67,7 +67,7 @@ export const siteConfig = {
   ],
   education: [
     {
-      logo: "/public/City-St-Georges-Logo-Primary-Internal.png",
+      logo: "City-St-Georges-Logo-Primary-Internal.png",
       school: "City St George's, University of London",
       degree: "BSc Computer Science",
       honours: "2:1",
