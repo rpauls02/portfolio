@@ -26,6 +26,11 @@ import "../styles/global.css";
     <title>{siteConfig.name}</title>
   </head>
   <body>
+    <div
+      id="cursor-glow"
+      class="pointer-events-none fixed left-0 top-0 z-[5]"
+      style={`--glow-color: ${siteConfig.accentColor}`}
+    ></div>
     <Header />
     <section>
       <Hero />
@@ -37,3 +42,106 @@ import "../styles/global.css";
     <Footer />
   </body>
 </html>
+
+<style>
+  #cursor-glow {
+    width: 300px;
+    height: 300px;
+    margin-left: -150px;
+    margin-top: -150px;
+    transform: translate(var(--x, 50vw), var(--y, 50vh));
+    background: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--glow-color) 10%, transparent) 0%,
+      color-mix(in srgb, var(--glow-color) 4%, transparent) 45%,
+      transparent 75%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: blob-morph 9s ease-in-out infinite;
+    transition: opacity 0.6s ease-in-out;
+    will-change: transform, border-radius;
+  }
+
+  #cursor-glow.is-active {
+    opacity: 1;
+  }
+
+  @keyframes blob-morph {
+    0%,
+    100% {
+      border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+    }
+    25% {
+      border-radius: 60% 40% 30% 70% / 55% 65% 35% 45%;
+    }
+    50% {
+      border-radius: 35% 65% 55% 45% / 60% 35% 65% 40%;
+    }
+    75% {
+      border-radius: 55% 45% 70% 30% / 40% 55% 45% 60%;
+    }
+  }
+</style>
+
+<script>
+  const glow = document.getElementById("cursor-glow");
+  if (glow) {
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let curX = targetX;
+    let curY = targetY;
+    let running = false;
+
+    const tick = () => {
+      curX += (targetX - curX) * 0.12;
+      curY += (targetY - curY) * 0.12;
+      glow.style.setProperty("--x", `${curX}px`);
+      glow.style.setProperty("--y", `${curY}px`);
+      if (Math.abs(targetX - curX) > 0.5 || Math.abs(targetY - curY) > 0.5) {
+        requestAnimationFrame(tick);
+      } else {
+        running = false;
+      }
+    };
+
+    const heroEl = document.getElementById("hero");
+    const footerEl = document.getElementById("site-footer");
+    const FADE_BUFFER = 220;
+    const glowOpacity = (y: number) => {
+      const heroRect = heroEl?.getBoundingClientRect();
+      const footerRect = footerEl?.getBoundingClientRect();
+      let o = 0;
+      if (heroRect) {
+        if (y >= heroRect.top && y <= heroRect.bottom) o = Math.max(o, 1);
+        else if (y > heroRect.bottom && y <= heroRect.bottom + FADE_BUFFER) {
+          o = Math.max(o, 1 - (y - heroRect.bottom) / FADE_BUFFER);
+        }
+      }
+      if (footerRect) {
+        if (y >= footerRect.top && y <= footerRect.bottom) o = Math.max(o, 1);
+        else if (y < footerRect.top && y >= footerRect.top - FADE_BUFFER) {
+          o = Math.max(o, 1 - (footerRect.top - y) / FADE_BUFFER);
+        }
+      }
+      return Math.min(1, Math.max(0, o));
+    };
+
+    window.addEventListener("mousemove", (e) => {
+      const opacity = glowOpacity(e.clientY);
+      glow.classList.toggle("is-active", opacity > 0.02);
+      glow.style.opacity = String(opacity);
+      if (opacity <= 0.02) return;
+      targetX = e.clientX;
+      targetY = e.clientY;
+      if (!running) {
+        running = true;
+        requestAnimationFrame(tick);
+      }
+    });
+    window.addEventListener("mouseleave", () => {
+      glow.classList.remove("is-active");
+      glow.style.opacity = "0";
+    });
+  }
+</script>
