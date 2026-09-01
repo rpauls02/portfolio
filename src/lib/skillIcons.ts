@@ -19,14 +19,20 @@ export const skillIcons: Record<string, string> = {
   Java: "simple-icons:openjdk",
   Roboflow: "simple-icons:roboflow",
   YOLO: "simple-icons:yolo",
+  "Anthropic Claude": "simple-icons:anthropic",
+  "Material UI": "simple-icons:mui",
+  "GitHub Actions": "simple-icons:githubactions",
+  OpenCV: "simple-icons:opencv",
 
   // Generic domain/field labels (no single brand logo, use a representative icon)
   "Machine Learning": "mdi:brain",
   "Artificial Intelligence": "mdi:robot-outline",
   "Statistical Reasoning": "mdi:chart-bell-curve",
   "Object Detection": "mdi:image-search-outline",
+  "Computer Vision": "mdi:eye-outline",
   "Natural Language Processing(NLP)": "mdi:message-text-outline",
   "Web Development": "mdi:web",
+  "REST APIs": "mdi:api",
   SQL: "mdi:database",
   NoSQL: "mdi:database-outline",
 };
