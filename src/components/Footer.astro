@@ -4,37 +4,86 @@ import { siteConfig } from "../config";
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+
+// Scattered code-symbol glyphs, jittered across a grid so they never overlap.
+const FOOTER_SYMBOL_GLYPHS = ["</>", "{}", "[]", "()", "<>", "::", "==", "++", ";", "=>"];
+const FOOTER_GRID_COLS = 5;
+const FOOTER_GRID_ROWS = 3;
+const footerCells = [];
+for (let r = 0; r < FOOTER_GRID_ROWS; r++) {
+  for (let c = 0; c < FOOTER_GRID_COLS; c++) footerCells.push({ c, r });
+}
+for (let i = footerCells.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [footerCells[i], footerCells[j]] = [footerCells[j], footerCells[i]];
+}
+const footerCellW = 100 / FOOTER_GRID_COLS;
+const footerCellH = 100 / FOOTER_GRID_ROWS;
+const scatteredFooterSymbols = FOOTER_SYMBOL_GLYPHS.map((glyph, i) => {
+  const cell = footerCells[i % footerCells.length];
+  const jitterX = Math.random() * 0.6 + 0.2;
+  const jitterY = Math.random() * 0.6 + 0.2;
+  return {
+    glyph,
+    xPct: Math.round(cell.c * footerCellW + jitterX * footerCellW),
+    yPct: Math.round(cell.r * footerCellH + jitterY * footerCellH),
+    fontSize: Math.round(Math.random() * 6 + 18),
+    rotation: Math.round(Math.random() * 40 - 20),
+    floatDuration: (Math.random() * 6 + 8).toFixed(2),
+    floatDelay: (-(Math.random() * 14)).toFixed(2),
+  };
+});
 ---
 
-<footer class="relative border-t overflow-hidden" style={`background-color: #34333a; border-color: color-mix(in srgb, ${siteConfig.accentColor} 40%, transparent);`}>
+<footer id="site-footer" class="relative overflow-hidden" style={`background-color: #34333a;`}>
 
-  <!-- Decorative pattern -->
-  <div class="absolute inset-0 pointer-events-none">
+  <!-- Decorative pattern (matches Hero background, fading in from the top) -->
+  <div class="absolute inset-0 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,white_40%)]">
     <svg
       aria-hidden="true"
-      class="absolute bottom-0 left-0 w-full h-full"
-      preserveAspectRatio="none"
+      class="absolute inset-0 size-full stroke-gray-700"
     >
       <defs>
         <pattern
-          id="footer-pattern"
-          x="0"
-          y="0"
-          width="100"
-          height="100"
+          x="50%"
+          y={-1}
+          id="footer-grid-lines"
+          width={200}
+          height={200}
           patternUnits="userSpaceOnUse"
         >
-          <path
-            d="M0 50 Q 25 40, 50 50 T 100 50"
-            stroke={siteConfig.accentColor}
-            stroke-width="1"
-            fill="none"
-            opacity="0.15"
-          ></path>
+          <path d="M.5 200V.5H200" fill="none" stroke-width="0.5"></path>
+        </pattern>
+        <pattern
+          x="50%"
+          y={-1}
+          id="footer-grid-tile-fill"
+          width={200}
+          height={200}
+          patternUnits="userSpaceOnUse"
+        >
+          <rect x="1" y="1" width="198" height="198" fill={siteConfig.accentColor}></rect>
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill="url(#footer-pattern)"></rect>
+      <rect
+        fill="url(#footer-grid-lines)"
+        width="100%"
+        height="100%"
+        stroke-width={0}></rect>
+      <rect
+        id="footer-grid-spotlight"
+        fill="url(#footer-grid-tile-fill)"
+        width="100%"
+        height="100%"></rect>
     </svg>
+    {scatteredFooterSymbols.map((sym) => (
+      <span
+        class="symbol-float absolute font-mono"
+        style={`left: ${sym.xPct}%; top: ${sym.yPct}%; font-size: ${sym.fontSize}px; color: ${siteConfig.accentColor}; opacity: 0.2; --rot: ${sym.rotation}deg; animation-duration: ${sym.floatDuration}s; animation-delay: ${sym.floatDelay}s;`}
+      >
+        {sym.glyph}
+      </span>
+    ))}
   </div>
 
   <div class="relative mx-auto max-w-6xl px-6 py-12 lg:px-8">
@@ -42,7 +91,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
       class="flex flex-col md:flex-row md:items-center md:justify-between gap-8"
     >
       <div class="flex flex-col gap-4">
-        <h3 class="text-2xl font-bold text-gray-100">
+        <h3 class="text-2xl font-bold" style={{ color: siteConfig.accentColor }}>
           {siteConfig.name}
         </h3>
         <p class="text-base text-gray-400">
@@ -245,3 +294,101 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
     </div>
   </div>
 </footer>
+
+<style>
+  #footer-grid-spotlight {
+    -webkit-mask-image: radial-gradient(
+      220px circle at var(--fx, 50%) var(--fy, 50%),
+      white,
+      transparent 70%
+    );
+    mask-image: radial-gradient(
+      220px circle at var(--fx, 50%) var(--fy, 50%),
+      white,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  #footer-symbols-spotlight {
+    -webkit-mask-image: radial-gradient(
+      140px circle at var(--fx, 50%) var(--fy, 50%),
+      white,
+      transparent 70%
+    );
+    mask-image: radial-gradient(
+      140px circle at var(--fx, 50%) var(--fy, 50%),
+      white,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  #site-footer.is-glowing #footer-grid-spotlight {
+    opacity: 0.3;
+  }
+
+  #site-footer.is-glowing #footer-symbols-spotlight {
+    opacity: 0.55;
+  }
+
+  /* Gentle drift so scattered symbols feel alive, like fireflies wandering
+     rather than sitting fixed in place. */
+  .symbol-float {
+    animation-name: symbol-float;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes symbol-float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(0px, 0px); }
+    12.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-5px, -5px); }
+    25% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-8px, 1px); }
+    37.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-5px, 6px); }
+    50% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(0px, 8px); }
+    62.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(5px, 6px); }
+    75% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(8px, 1px); }
+    87.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(5px, -5px); }
+  }
+</style>
+
+<script>
+  const footer = document.getElementById("site-footer");
+  if (footer) {
+    let targetX = 0;
+    let targetY = 0;
+    let curX = 0;
+    let curY = 0;
+    let running = false;
+
+    const tick = () => {
+      curX += (targetX - curX) * 0.12;
+      curY += (targetY - curY) * 0.12;
+      footer.style.setProperty("--fx", `${curX}px`);
+      footer.style.setProperty("--fy", `${curY}px`);
+      if (Math.abs(targetX - curX) > 0.5 || Math.abs(targetY - curY) > 0.5) {
+        requestAnimationFrame(tick);
+      } else {
+        running = false;
+      }
+    };
+
+    footer.addEventListener("mousemove", (e) => {
+      footer.classList.add("is-glowing");
+      const rect = footer.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+      if (!running) {
+        curX = targetX;
+        curY = targetY;
+        running = true;
+        requestAnimationFrame(tick);
+      }
+    });
+    footer.addEventListener("mouseleave", () => {
+      footer.classList.remove("is-glowing");
+    });
+  }
+</script>
