@@ -31,8 +31,8 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
                   )}
                   {/* Experience card */}
                   <div
-                    class="rounded-lg border border-gray-500 p-4 sm:p-5 md:p-6 transition-all duration-300 hover:border-gray-300 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
-                    style="background-color: #44434D;"
+                    class="relative z-10 rounded-lg border border-gray-500 p-4 sm:p-5 md:p-6 transition-all duration-500 ease-out hover:border-gray-300 hover:-translate-y-1 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.3),0_0_25px_var(--card-glow)]"
+                    style={`background-color: #44434D; --card-glow: color-mix(in srgb, ${siteConfig.accentColor} 35%, transparent);`}
                     onmouseenter={`
                       this.querySelectorAll('.exp-highlight').forEach(el => el.style.setProperty('color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, white)'));
                       this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');

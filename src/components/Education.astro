@@ -22,8 +22,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
             <div class="space-y-8">
               {siteConfig.education.map((edu) => (
                 <div
-                  class="group relative flex flex-col rounded-xl border border-gray-500 p-4 sm:p-5 md:p-6 transition-all duration-300 hover:border-gray-300 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
-                  style="background-color: #44434D;"
+                  class="group relative z-10 flex flex-col rounded-xl border border-gray-500 p-4 sm:p-5 md:p-6 transition-all duration-500 ease-out hover:border-gray-300 hover:-translate-y-1 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.3),0_0_25px_var(--card-glow)]"
+                  style={`background-color: #44434D; --card-glow: color-mix(in srgb, ${siteConfig.accentColor} 35%, transparent);`}
                   onmouseenter={`
                     this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
                     this.querySelectorAll('.edu-highlight').forEach(el => el.style.setProperty('color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, white)'));
@@ -48,14 +48,9 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
                       )}
                       <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-100">
-                          {edu.degree}
+                          {edu.degree}{" "}
+                          <span class="text-gray-400 font-normal">({edu.honours})</span>
                         </h3>
-                        <p
-                          class="edu-highlight text-base sm:text-lg transition-colors duration-300"
-                          style={`color: ${siteConfig.accentColor}`}
-                        >
-                          {edu.honours}
-                        </p>
                         <p
                           class="edu-highlight text-base sm:text-lg transition-colors duration-300"
                           style={`color: ${siteConfig.accentColor}`}

@@ -21,7 +21,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
           </div>
 
           <div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {siteConfig.projects.map((project, index) => {
                 const Component = project.link ? "a" : "div";
                 const linkProps = project.link
@@ -36,12 +36,12 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                   <div class="group relative">
                     <Component
                       {...linkProps}
-                      class={`flex flex-col h-full relative p-4 sm:p-5 rounded-xl border border-gray-500 transition-all duration-300 ${
+                      class={`z-10 flex flex-col h-full relative overflow-hidden p-4 sm:p-5 rounded-xl border border-gray-500 transition-all duration-500 ease-out ${
                         project.link
-                          ? "hover:border-gray-300 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1"
+                          ? "hover:border-gray-300 hover:-translate-y-1 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.3),0_0_25px_var(--card-glow)]"
                           : ""
                       }`}
-                      style={`background-color: #44434D;`}
+                      style={`background-color: #44434D; --card-glow: color-mix(in srgb, ${siteConfig.accentColor} 35%, transparent);`}
                       onmouseenter={`
                         this.querySelector('.arrow-btn')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
                         this.querySelectorAll('.skill-tag').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
@@ -53,6 +53,14 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                         this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)');
                       `}
                     >
+                      {project.image && (
+                        <img
+                          src={`${import.meta.env.BASE_URL}/${project.image}`.replace(/\/+/g, "/")}
+                          alt={`${project.name} preview`}
+                          class="-mx-4 -mt-4 sm:-mx-5 sm:-mt-5 mb-3 max-w-none w-[calc(100%+2rem)] sm:w-[calc(100%+2.5rem)] h-auto"
+                        />
+                      )}
+
                       {project.link && (
                         <div
                           class="arrow-btn absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-xl text-white transition-all duration-300"
