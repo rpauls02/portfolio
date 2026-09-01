@@ -1,5 +1,85 @@
 ---
 import { siteConfig } from "../config";
+import { skillIcons } from "../lib/skillIcons";
+import simpleIcons from "@iconify-json/simple-icons/icons.json";
+import mdiIcons from "@iconify-json/mdi/icons.json";
+
+const iconSets: Record<string, any> = { "simple-icons": simpleIcons, mdi: mdiIcons };
+
+function getIconBody(iconRef: string) {
+  const [prefix, name] = iconRef.split(":");
+  const icon = iconSets[prefix]?.icons?.[name];
+  if (!icon) return null;
+  return icon.body
+    .replaceAll("currentColor", siteConfig.accentColor)
+    .replaceAll(
+      `fill="${siteConfig.accentColor}"`,
+      `fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"`
+    );
+}
+
+const allSkills = Array.from(
+  new Set([
+    ...siteConfig.projects.flatMap((p) => p.skills || []),
+    ...siteConfig.education.flatMap((e) => e.skills || []),
+  ])
+);
+const heroIcons = allSkills
+  .map((s) => skillIcons[s])
+  .filter((ref): ref is string => !!ref && !!getIconBody(ref));
+for (let i = heroIcons.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [heroIcons[i], heroIcons[j]] = [heroIcons[j], heroIcons[i]];
+}
+// Jittered-grid placement: one icon per cell so instances can never overlap.
+const GRID_COLS = 10;
+const GRID_ROWS = 6;
+const cells = [];
+for (let r = 0; r < GRID_ROWS; r++) {
+  for (let c = 0; c < GRID_COLS; c++) cells.push({ c, r });
+}
+for (let i = cells.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [cells[i], cells[j]] = [cells[j], cells[i]];
+}
+const cellW = 100 / GRID_COLS;
+const cellH = 100 / GRID_ROWS;
+const SCATTER_COUNT = Math.min(44, cells.length);
+const scatteredIcons = Array.from({ length: SCATTER_COUNT }, (_, i) => {
+  const cell = cells[i];
+  const jitterX = Math.random() * 0.6 + 0.2;
+  const jitterY = Math.random() * 0.6 + 0.2;
+  return {
+    body: heroIcons.length ? getIconBody(heroIcons[i % heroIcons.length]) : null,
+    xPct: Math.round(cell.c * cellW + jitterX * cellW),
+    yPct: Math.round(cell.r * cellH + jitterY * cellH),
+    size: Math.round(Math.random() * 6 + 18),
+    rotation: Math.round(Math.random() * 60 - 30),
+    glowDuration: (Math.random() * 5 + 5).toFixed(2),
+    glowDelay: (-(Math.random() * 10)).toFixed(2),
+    floatDuration: (Math.random() * 6 + 8).toFixed(2),
+    floatDelay: (-(Math.random() * 14)).toFixed(2),
+  };
+}).filter((p) => p.body);
+
+// Code-symbol glyphs, scattered the same way (reusing leftover grid cells
+// so they never land on top of a skill icon).
+const SYMBOL_GLYPHS = ["</>", "{}", "[]", "()", "<>", "::", "==", "++", ";", "=>"];
+const symbolCells = cells.slice(SCATTER_COUNT, SCATTER_COUNT + SYMBOL_GLYPHS.length);
+const scatteredSymbols = SYMBOL_GLYPHS.map((glyph, i) => {
+  const cell = symbolCells[i % symbolCells.length];
+  const jitterX = Math.random() * 0.6 + 0.2;
+  const jitterY = Math.random() * 0.6 + 0.2;
+  return {
+    glyph,
+    xPct: Math.round(cell.c * cellW + jitterX * cellW),
+    yPct: Math.round(cell.r * cellH + jitterY * cellH),
+    fontSize: Math.round(Math.random() * 6 + 18),
+    rotation: Math.round(Math.random() * 40 - 20),
+    floatDuration: (Math.random() * 6 + 8).toFixed(2),
+    floatDelay: (-(Math.random() * 14)).toFixed(2),
+  };
+});
 ---
 
 <div
@@ -7,15 +87,10 @@ import { siteConfig } from "../config";
   class="relative isolate overflow-hidden py-24 md:h-screen"
   style={`--accent-color: ${siteConfig.accentColor}; background-color: #34333a;`}
 >
-  <!-- Gradient overlay -->
-  <div
-    class="absolute inset-0 -z-10"
-    style={`background: radial-gradient(ellipse 1000px 1000px at 0% 0%, ${siteConfig.accentColor}40 0%, ${siteConfig.accentColor}25 20%, ${siteConfig.accentColor}10 40%, rgba(52, 51, 58, 0.3) 70%, rgba(52, 51, 58, 0.8) 90%, #34333a 100%)`}
-  >
-  </div>
+  <div class="absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,white_70%,transparent_100%)]">
   <svg
     aria-hidden="true"
-    class="absolute inset-0 -z-10 size-full stroke-gray-700 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+    class="absolute inset-0 size-full stroke-gray-700 [mask-image:radial-gradient(160%_130%_at_75%_15%,white,transparent_95%)]"
   >
     <defs>
       <pattern
@@ -26,109 +101,37 @@ import { siteConfig } from "../config";
         height={200}
         patternUnits="userSpaceOnUse"
       >
-        <path d="M.5 200V.5H200" fill="none"></path>
-      </pattern>
-      <pattern
-        id="programming-symbols"
-        x="0"
-        y="0"
-        width="400"
-        height="400"
-        patternUnits="userSpaceOnUse"
-      >
-        <text
-          x="50"
-          y="50"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="24"
-          transform="rotate(-15)">&lt;/&gt;</text
-        >
-        <text
-          x="150"
-          y="100"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="20"
-          transform="rotate(10)">{}</text
-        >
-        <text
-          x="250"
-          y="80"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="18"
-          transform="rotate(-5)">=&gt;</text
-        >
-        <text
-          x="100"
-          y="200"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="22"
-          transform="rotate(15)">[]</text
-        >
-        <text
-          x="300"
-          y="180"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="20"
-          transform="rotate(-10)">&lt;&gt;</text
-        >
-        <text
-          x="200"
-          y="250"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="24"
-          transform="rotate(5)">()</text
-        >
-        <text
-          x="50"
-          y="320"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="18"
-          transform="rotate(-8)">::</text
-        >
-        <text
-          x="350"
-          y="300"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="22"
-          transform="rotate(12)">==</text
-        >
-        <text
-          x="150"
-          y="350"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="20"
-          transform="rotate(-15)">++</text
-        >
-        <text
-          x="250"
-          y="370"
-          fill={siteConfig.accentColor}
-          font-family="monospace"
-          font-size="24"
-          transform="rotate(8)">;</text
-        >
+        <path d="M.5 200V.5H200" fill="none" stroke-width="0.5"></path>
       </pattern>
     </defs>
-    <rect
-      fill="url(#programming-symbols)"
-      width="100%"
-      height="100%"
-      opacity="0.2"></rect>
     <rect
       fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)"
       width="100%"
       height="100%"
       stroke-width={0}></rect>
   </svg>
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 [mask-image:radial-gradient(160%_130%_at_75%_15%,white,transparent_95%)]"
+  >
+    {scatteredIcons.map((icon) => (
+      <svg
+        viewBox="0 0 24 24"
+        class="icon-glow absolute"
+        style={`left: ${icon.xPct}%; top: ${icon.yPct}%; width: ${icon.size}px; height: ${icon.size}px; --rot: ${icon.rotation}deg; animation-duration: ${icon.glowDuration}s, ${icon.floatDuration}s; animation-delay: ${icon.glowDelay}s, ${icon.floatDelay}s;`}
+        set:html={icon.body}
+      />
+    ))}
+    {scatteredSymbols.map((sym) => (
+      <span
+        class="symbol-float absolute font-mono"
+        style={`left: ${sym.xPct}%; top: ${sym.yPct}%; font-size: ${sym.fontSize}px; color: ${siteConfig.accentColor}; opacity: 0.2; --rot: ${sym.rotation}deg; animation-duration: ${sym.floatDuration}s; animation-delay: ${sym.floatDelay}s;`}
+      >
+        {sym.glyph}
+      </span>
+    ))}
+  </div>
+  </div>
   <div class="h-full max-w-6xl mx-auto px-6 lg:px-8 py-8 sm:py-12 md:py-24 flex items-center">
     <div>
       <h1
@@ -321,7 +324,64 @@ import { siteConfig } from "../config";
     animation-delay: 0.4s;
   }
 
+  /* Firefly-style random glow: icons idle at the unhovered skill-tag color,
+     then briefly flare to the hovered skill-tag color at unsynced intervals. */
+  .icon-glow {
+    color: color-mix(in srgb, var(--accent-color) 30%, transparent);
+    animation-name: icon-glow, icon-float;
+    animation-timing-function: ease-in-out, linear;
+    animation-iteration-count: infinite, infinite;
+  }
+
+  @keyframes icon-glow {
+    0%, 100% {
+      color: color-mix(in srgb, var(--accent-color) 30%, transparent);
+      filter: none;
+    }
+    8% {
+      color: color-mix(in srgb, var(--accent-color) 75%, transparent);
+      filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent-color) 50%, transparent));
+    }
+    18% {
+      color: color-mix(in srgb, var(--accent-color) 30%, transparent);
+      filter: none;
+    }
+  }
+
+  /* Gentle drift so scattered icons/symbols feel alive, like fireflies
+     wandering rather than sitting fixed in place. Icons declare both
+     animations together on .icon-glow (see above) to avoid two classes
+     fighting over the shared animation-* shorthand properties. */
+  .symbol-float {
+    animation-name: symbol-float;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes icon-float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(0px, 0px); }
+    12.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(4px, -6px); }
+    25% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(7px, -2px); }
+    37.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(5px, 4px); }
+    50% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(0px, 7px); }
+    62.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-5px, 4px); }
+    75% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-7px, -2px); }
+    87.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-4px, -6px); }
+  }
+
+  @keyframes symbol-float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(0px, 0px); }
+    12.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-5px, -5px); }
+    25% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-8px, 1px); }
+    37.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(-5px, 6px); }
+    50% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(0px, 8px); }
+    62.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(5px, 6px); }
+    75% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(8px, 1px); }
+    87.5% { transform: translate(-50%, -50%) rotate(var(--rot)) translate(5px, -5px); }
+  }
+
   .animation-delay-600 {
     animation-delay: 0.6s;
   }
+
 </style>
