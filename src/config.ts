@@ -24,7 +24,8 @@ export const siteConfig = {
       description:
         "Delve into a vast range of Formula One statistics from driver's points to the sport's circuit history, and create your own insights, all using data available since the first championship.",
       link: "https://f1statfinder.web.app",
-      skills: ["Web Development", "GCP", "Firebase", "Flask", "React", "Typescript", "CSS"],
+      image: "projects/f1statfinder-preview-v4.png",
+      skills: ["Web Development", "GCP", "Firebase", "Flask", "Python", "React", "Typescript", "Material UI", "Anthropic Claude", "GitHub Actions", "REST APIs", "FastF1", "CSS"],
     },
     {
       name: "F1Detect",
@@ -41,11 +42,11 @@ export const siteConfig = {
       skills: ["Natural Language Processing(NLP)", "Python", "NLTK", "Scikit", "PyTorch"],
     },
     {
-      name: "Earthquake Magnitude Prediction",
+      name: "Face Cover Detection",
       description:
-        "A dabble into regressive statistical ML algorithms. Preprocessing and error analysis included.",
-      link: "https://github.com/rpauls02/Earthquake-Magnitude-Prediction",
-      skills: ["Machine Learning", "Statistical Reasoning", "MATLAB"],
+        "Multiclass computer vision system comparing three CV pipelines to classify face mask status across 2,800+ images, with a custom CNN reaching 91% accuracy against real-world 'in the wild' testing.",
+      link: "https://github.com/rpauls02/Face-Cover-Detection",
+      skills: ["Computer Vision", "Python", "OpenCV", "Scikit", "PyTorch"],
     },
     {
       name: "RaceSight (WIP)",
