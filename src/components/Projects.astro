@@ -3,6 +3,9 @@ import { Icon } from "astro-icon/components";
 import { siteConfig } from "../config";
 import { skillIcons } from "../lib/skillIcons";
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const categories = hasProjects
+  ? Array.from(new Set(siteConfig.projects.map((p) => p.category).filter(Boolean))).sort()
+  : [];
 ---
 
 {
@@ -20,6 +23,23 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
             />
           </div>
 
+          {categories.length > 0 && (
+            <div
+              id="project-filters"
+              class="flex flex-wrap gap-2 lg:-my-4"
+              style={`--accent: ${siteConfig.accentColor};`}
+            >
+              <button type="button" class="filter-pill" data-filter="All" data-active="true">
+                All
+              </button>
+              {categories.map((cat) => (
+                <button type="button" class="filter-pill" data-filter={cat} data-active="false">
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {siteConfig.projects.map((project, index) => {
@@ -33,7 +53,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                   : {};
 
                 return (
-                  <div class="group relative">
+                  <div class="group relative" data-project-card data-category={project.category}>
                     <Component
                       {...linkProps}
                       class={`z-10 flex flex-col h-full relative overflow-hidden p-4 sm:p-5 rounded-xl border border-gray-500 transition-all duration-500 ease-out ${
@@ -130,3 +150,43 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
     </section>
   )
 }
+
+<style>
+  .filter-pill {
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid #6b7280;
+    color: #d1d5db;
+    background-color: transparent;
+    transition: all 0.3s ease;
+  }
+  .filter-pill:hover {
+    border-color: var(--accent);
+  }
+  .filter-pill[data-active="true"] {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+</style>
+
+<script>
+  const container = document.getElementById("project-filters");
+  const cards = document.querySelectorAll<HTMLElement>("[data-project-card]");
+
+  container?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>(".filter-pill");
+    if (!btn) return;
+
+    container.querySelectorAll(".filter-pill").forEach((b) => b.setAttribute("data-active", "false"));
+    btn.setAttribute("data-active", "true");
+
+    const filter = btn.dataset.filter;
+    cards.forEach((card) => {
+      const show = filter === "All" || card.dataset.category === filter;
+      card.style.display = show ? "" : "none";
+    });
+  });
+</script>
