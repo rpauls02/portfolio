@@ -23,6 +23,13 @@ export const skillIcons: Record<string, string> = {
   "Material UI": "simple-icons:mui",
   "GitHub Actions": "simple-icons:githubactions",
   OpenCV: "simple-icons:opencv",
+  PHP: "simple-icons:php",
+  MySQL: "simple-icons:mysql",
+  Docker: "simple-icons:docker",
+  Apache: "simple-icons:apache",
+  Redis: "simple-icons:redis",
+  Composer: "simple-icons:composer",
+  Linux: "simple-icons:linux",
 
   // Generic domain/field labels (no single brand logo, use a representative icon)
   "Machine Learning": "mdi:brain",
@@ -30,6 +37,7 @@ export const skillIcons: Record<string, string> = {
   "Statistical Reasoning": "mdi:chart-bell-curve",
   "Object Detection": "mdi:image-search-outline",
   "Computer Vision": "mdi:eye-outline",
+  OOAD: "mdi:sitemap-outline",
   "Natural Language Processing(NLP)": "mdi:message-text-outline",
   "Web Development": "mdi:web",
   "REST APIs": "mdi:api",
