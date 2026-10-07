@@ -6,6 +6,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const categories = hasProjects
   ? Array.from(new Set(siteConfig.projects.map((p) => p.category).filter(Boolean))).sort()
   : [];
+const hasWipProjects = hasProjects && siteConfig.projects.some((p) => p.wip);
 ---
 
 {
@@ -37,6 +38,11 @@ const categories = hasProjects
                   {cat}
                 </button>
               ))}
+              {hasWipProjects && (
+                <button type="button" class="filter-pill" data-filter="Work in Progress" data-active="false">
+                  Work in Progress
+                </button>
+              )}
             </div>
           )}
 
@@ -53,7 +59,7 @@ const categories = hasProjects
                   : {};
 
                 return (
-                  <div class="group relative" data-project-card data-category={project.category}>
+                  <div class="group relative" data-project-card data-category={project.category} data-wip={project.wip ? "true" : "false"}>
                     <Component
                       {...linkProps}
                       class={`z-10 flex flex-col h-full relative overflow-hidden p-4 sm:p-5 rounded-xl border border-gray-500 transition-all duration-500 ease-out ${
@@ -185,7 +191,10 @@ const categories = hasProjects
 
     const filter = btn.dataset.filter;
     cards.forEach((card) => {
-      const show = filter === "All" || card.dataset.category === filter;
+      const show =
+        filter === "All" ||
+        card.dataset.category === filter ||
+        (filter === "Work in Progress" && card.dataset.wip === "true");
       card.style.display = show ? "" : "none";
     });
   });

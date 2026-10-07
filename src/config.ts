@@ -26,7 +26,8 @@ export const siteConfig = {
       link: "https://f1statfinder.web.app",
       image: "projects/f1statfinder-preview-v4.png",
       category: "Web Development",
-      skills: ["GCP", "Firebase", "Flask", "Python", "React", "Typescript", "Material UI", "Anthropic Claude", "GitHub Actions", "FastF1"],
+      skills: ["GCP", "Firebase", "CI/CD", "Python", "Flask", "FastF1", "React", "Typescript", "Plotly", "Anthropic Claude"],
+      wip: true,
     },
     {
       name: "F1Detect",
@@ -55,9 +56,9 @@ export const siteConfig = {
       skills: ["Python", "OpenCV", "Scikit", "PyTorch"],
     },
     {
-      name: "Web Development Coursework",
+      name: "VolunteerHub",
       description:
-        "A PHP MVC application with custom controllers and models handling user auth, volunteer sign-up, and staff shift scheduling, containerised with Docker Compose on a Linux-based LAMP stack.",
+        "A full-stack volunteer management platform built from scratch with a custom PHP MVC framework, featuring role-based auth, volunteer sign-up, and staff shift scheduling. Containerised with Docker Compose across Apache, MySQL and Redis on a LAMP stack.",
       link: "https://github.com/rpauls02/Web-Development-Coursework",
       category: "Web Development",
       skills: ["PHP", "MySQL", "Docker", "Apache", "Redis", "Composer", "Linux"],
@@ -69,6 +70,7 @@ export const siteConfig = {
       link: "https://github.com/rpauls02/RaceSight",
       category: "Object Detection",
       skills: ["Python", "Roboflow", "YOLO", "OOAD"],
+      wip: true,
     },
   ],
   experience: [
