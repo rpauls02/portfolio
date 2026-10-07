@@ -24,7 +24,7 @@ export const siteConfig = {
       description:
         "Delve into a vast range of Formula One statistics from driver's points to the sport's circuit history, using data available since the first championship. Complete with AI-generated race recaps, and live weather forecasts for race weekends.",
       link: "https://f1statfinder.web.app",
-      image: "projects/f1statfinder-preview-v6.png",
+      image: "projects/f1statfinder-preview-v7.png",
       category: "Web Development",
       skills: ["GCP", "Firebase", "CI/CD", "Python", "Flask", "FastF1", "React", "Typescript", "Plotly", "Anthropic Claude"],
       wip: true,
