@@ -2,6 +2,7 @@ export const siteConfig = {
   name: "Robert Pauls",
   title: "Software Engineer",
   accentColor: "#7777ff",
+  cvUrl: "/cv.pdf",
   social: {
     linkedin: "https://linkedin.com/in/rpauls02",
     github: "https://github.com/rpauls02",
