@@ -24,7 +24,7 @@ export const siteConfig = {
       description:
         "Delve into a vast range of Formula One statistics from driver's points to the sport's circuit history, and create your own insights, all using data available since the first championship.",
       link: "https://f1statfinder.web.app",
-      image: "projects/f1statfinder-preview-v4.png",
+      image: "projects/f1statfinder-preview-v5.png",
       category: "Web Development",
       skills: ["GCP", "Firebase", "CI/CD", "Python", "Flask", "FastF1", "React", "Typescript", "Plotly", "Anthropic Claude"],
       wip: true,
