@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { siteConfig } from "../../config";
+
+const posts = (await getCollection("blog", ({ data }) => data.published)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<BlogLayout title="Blog" description={`Writing from ${siteConfig.name}`}>
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-100">
+            Blog
+        </h1>
+        <div
+            class="w-full h-1.25 mt-3 mb-10 rounded-xl"
+            style={`background-color: ${siteConfig.accentColor}`}
+        ></div>
+
+        {posts.length === 0 ? (
+            <p class="text-lg text-gray-400">No posts yet — check back soon.</p>
+        ) : (
+            <ul class="flex flex-col gap-6">
+                {posts.map((post) => (
+                    <li>
+                        <a
+                            href={`/blog/${post.id}`}
+                            class="block rounded-xl p-6 border border-gray-500 transition-all duration-500 ease-out hover:border-gray-300 hover:-translate-y-1 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.3),0_0_25px_var(--card-glow)]"
+                            style={`--accent-color: ${siteConfig.accentColor}; --card-glow: color-mix(in srgb, ${siteConfig.accentColor} 35%, transparent); background-color: #44434D;`}
+                            onmouseenter={`
+                                this.querySelectorAll('.tag-pill').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)'));
+                                this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 75%, transparent)');
+                            `}
+                            onmouseleave={`
+                                this.querySelectorAll('.tag-pill').forEach(el => el.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)'));
+                                this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)');
+                            `}
+                        >
+                            <p class="text-sm text-gray-400">
+                                {post.data.date.toLocaleDateString("en-GB", {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                })}
+                            </p>
+                            <h2
+                                class="mt-1 text-2xl font-semibold text-gray-100 transition-colors duration-300 group-hover:text-(--accent-color)"
+                                style={`--accent-color: ${siteConfig.accentColor}`}
+                            >
+                                {post.data.title}
+                            </h2>
+                            <div
+                                class="accent-bar w-full h-0.5 mt-2 rounded-full transition-colors duration-300"
+                                style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)`}
+                            />
+                            <p class="mt-3 text-gray-400">
+                                {post.data.description}
+                            </p>
+                            {post.data.tags.length > 0 && (
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    {post.data.tags.map((tag) => (
+                                        <span
+                                            class="tag-pill px-3 py-1 text-gray-300 rounded-xl text-sm font-medium transition-all duration-300"
+                                            style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent);`}
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        )}
+    </div>
+</BlogLayout>

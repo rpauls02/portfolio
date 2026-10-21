@@ -1,0 +1,152 @@
+---
+import { getCollection, render } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { siteConfig } from "../../config";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog", ({ data }) => data.published);
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+import { execSync } from "node:child_process";
+import { statSync } from "node:fs";
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const gitDates = (args: string) => {
+    try {
+        return execSync(`git log ${args} --format=%cI -- "${post.filePath}"`, { encoding: "utf8" })
+            .trim()
+            .split("\n")
+            .filter(Boolean);
+    } catch {
+        return [];
+    }
+};
+const created = (() => {
+    const added = gitDates("--diff-filter=A").pop();
+    return added ? new Date(added) : statSync(post.filePath!).birthtime;
+})();
+const lastEdit = (() => {
+    const latest = gitDates("-1")[0];
+    return latest ? new Date(latest) : statSync(post.filePath!).mtime;
+})();
+const toc = headings.filter((h) => h.depth <= 3);
+const formatDate = (d: Date) =>
+    d.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/London",
+    });
+---
+
+<BlogLayout
+    title={post.data.title}
+    description={post.data.description}
+    backHref="/blog"
+    backLabel="Back to blog"
+>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,48rem)_minmax(0,1fr)]">
+        <header class="lg:col-start-2">
+            <h1 class="mt-6 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-100">
+                {post.data.title}
+            </h1>
+            <p class="mt-2 text-sm text-gray-400">
+                Created: {formatDate(created)} | Last edit: {formatDate(lastEdit)}
+            </p>
+
+            {post.data.tags.length > 0 && (
+                <div class="mt-4 flex flex-wrap gap-2">
+                    {post.data.tags.map((tag) => (
+                        <span
+                            class="px-3 py-1 text-gray-300 rounded-xl text-sm font-medium"
+                            style={`background-color: color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent);`}
+                        >
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            )}
+
+            <div
+                class="w-full h-1.25 mt-6 rounded-xl"
+                style={`background-color: ${siteConfig.accentColor}`}
+            ></div>
+        </header>
+
+        {toc.length > 0 && (
+            <nav
+                id="toc"
+                aria-label="Table of contents"
+                class="hidden lg:block lg:row-start-2 lg:col-start-1 lg:justify-self-end lg:w-48 lg:mr-8 lg:mt-10"
+                style={`--accent-color: ${siteConfig.accentColor}`}
+            >
+                <div class="sticky top-28 flex flex-col gap-2 border-l border-gray-600 pl-4">
+                    <p class="text-xs font-semibold tracking-wide text-gray-500 uppercase mb-1">
+                        On this page
+                    </p>
+                    {toc.map((heading) => (
+                        <a
+                            href={`#${heading.slug}`}
+                            data-toc-link
+                            data-slug={heading.slug}
+                            class={`toc-link text-sm text-gray-400 transition-colors duration-300 hover:text-[var(--accent-color)] ${
+                                heading.depth === 3 ? "pl-3" : ""
+                            }`}
+                        >
+                            {heading.text}
+                        </a>
+                    ))}
+                </div>
+            </nav>
+        )}
+
+        <div
+            class="prose prose-invert mt-10 max-w-[72ch] text-base text-gray-300 leading-relaxed lg:row-start-2 lg:col-start-2 [&_a]:text-(--accent-color) [&_a]:transition-colors [&_a]:duration-300 [&_a:hover]:text-[color-mix(in_srgb,var(--accent-color)_75%,white)] [&_h2]:text-(--accent-color) [&_h2]:text-[1.5em] [&_h2]:font-bold [&_h2]:mt-10[&_h2:first-child]:mt-0 [&_h3]:text-(--accent-color) [&_strong]:text-gray-100 [&_code]:text-(--accent-color) [&_pre]:bg-[#2b2a31] [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:overflow-x-auto [&_p+p]:mt-4"
+            style={`--accent-color: ${siteConfig.accentColor}`}
+        >
+            <Content />
+        </div>
+    </div>
+</BlogLayout>
+
+<style>
+    .toc-link[data-active="true"] {
+        color: var(--accent-color);
+    }
+</style>
+
+<script>
+    const links = document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]");
+    if (links.length > 0) {
+        const headingEls = Array.from(links)
+            .map((link) => document.getElementById(link.dataset.slug ?? ""))
+            .filter((el): el is HTMLElement => !!el);
+
+        const setActive = (slug: string | null) => {
+            links.forEach((link) => {
+                link.toggleAttribute("data-active", link.dataset.slug === slug);
+            });
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visible = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+                if (visible.length > 0) {
+                    setActive(visible[0].target.id);
+                }
+            },
+            { rootMargin: "-100px 0px -70% 0px" }
+        );
+
+        headingEls.forEach((el) => observer.observe(el));
+    }
+</script>
