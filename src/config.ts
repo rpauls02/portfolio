@@ -56,14 +56,14 @@ export const siteConfig = {
       category: "Image Classification",
       skills: ["Python", "OpenCV", "Scikit", "PyTorch"],
     },
-    {
+    /*{
       name: "VolunteerHub",
       description:
         "A full-stack volunteer management platform built from scratch with a custom PHP MVC framework, featuring role-based auth, volunteer sign-up, and staff shift scheduling. Containerised with Docker Compose across Apache, MySQL and Redis on a LAMP stack.",
       link: "https://github.com/rpauls02/Web-Development-Coursework",
       category: "Web Development",
       skills: ["PHP", "Twig", "MySQL", "Docker", "Apache", "Redis", "Composer", "Linux"],
-    },
+    },*/
     {
       name: "RaceSight (WIP)",
       description:
