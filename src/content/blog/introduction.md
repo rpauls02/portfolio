@@ -12,4 +12,4 @@ I'll try to keep posts practical rather than just text walls. Expect tables for 
 
 Next up is a look at the Formula One statistics website. It's already pretty deep, so I'll be focusing on progress from the circuits page: what's working, what's been painful to build, and the bits I'm still not happy with.
 
-If something here is useful, broken, or worth arguing about, my projects are viewable on [GitHub](https://github.com/rpauls02), and my [LinkedIn](https://linkedin.com/in/rpauls02) is always around.
+If something here is useful, broken, or worth discussing, my projects are viewable on [GitHub](https://github.com/rpauls02), and my [LinkedIn](https://linkedin.com/in/rpauls02) is always around.
