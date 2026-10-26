@@ -33,7 +33,7 @@ export const siteConfig = {
     {
       name: "F1Detect",
       description:
-        "YOLOv11 object detection pipeline trained on a mix of video-game and real-world footage to track Formula 1 cars in static and real-time footage, running at ~60 FPS on GPU.",
+        "YOLOv11 object detection pipeline trained on a mix of video-game and real-world footage to track Formula 1 cars in static and real-time footage, reaching 0.945 mAP@50 on validation at ~60 FPS on GPU.",
       link: "https://github.com/rpauls02/F1Detect",
       image: "projects/f1detect-preview-v6.png",
       category: "Object Detection",
