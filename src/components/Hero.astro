@@ -146,6 +146,11 @@ const scatteredSymbols = SYMBOL_GLYPHS.map((glyph, i) => {
       >
         {siteConfig.title}
       </p>
+      {siteConfig.tagline && (
+        <p class="mt-3 sm:mt-4 max-w-2xl text-pretty text-base sm:text-lg md:text-xl text-gray-300 animate-fade-in animation-delay-400">
+          {siteConfig.tagline}
+        </p>
+      )}
       <div
         class="mt-6 sm:mt-8 md:mt-10 flex items-center gap-x-4 sm:gap-x-6 md:gap-x-8 text-gray-400 animate-fade-in animation-delay-600"
       >

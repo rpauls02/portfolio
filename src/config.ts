@@ -1,9 +1,11 @@
 export const siteConfig = {
   name: "Robert Pauls",
   title: "Software Engineer",
+  tagline: "Computer Science graduate building full-stack apps and ML systems. Open to graduate software engineering and AI/ML roles.",
   accentColor: "#7777ff",
   cvUrl: "/cv.pdf",
   social: {
+    email: "rpauls2002@gmail.com",
     linkedin: "https://linkedin.com/in/rpauls02",
     github: "https://github.com/rpauls02",
     discord: "https://discord.com/users/116657724967616518",
@@ -76,11 +78,12 @@ export const siteConfig = {
   ],
   experience: [
     {
-      company: "Computer Repairs",
+      company: "Computer Repairs, Hornchurch",
       title: "Technician",
       dateRange: "Aug 2022 - Present",
       bullets: [
-        "Small online business assembling and repairing computer systems",
+        "Diagnose and repair desktop systems, cutting average turnaround time by 30% through systematic hardware/software fault-finding.",
+        "Advise customers on tailored hardware builds for gaming, creative, and business use cases, translating technical trade-offs into plain-language recommendations.",
       ],
     },
   ],
