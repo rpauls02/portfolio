@@ -79,7 +79,7 @@ export const siteConfig = {
   experience: [
     {
       company: "Computer Repairs, Hornchurch",
-      title: "Technician",
+      title: "Founder",
       dateRange: "Aug 2022 - Present",
       bullets: [
         "Diagnose and repair desktop systems, cutting average turnaround time by 30% through systematic hardware/software fault-finding.",
