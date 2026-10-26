@@ -23,17 +23,17 @@ export const siteConfig = {
     {
       name: "F1StatFinder",
       description:
-        "Delve into a vast range of Formula One statistics from driver's points to the sport's circuit history, using data available since the first championship. Complete with AI-generated race recaps, and live weather forecasts for race weekends.",
+        "Delve into a vast range of Formula One statistics from drivers' points to the sport's circuit history, using data available since the first championship. Complete with AI-generated race recaps, and live weather forecasts for race weekends.",
       link: "https://f1statfinder.web.app",
       image: "projects/f1statfinder-preview-v8.png",
       category: "Web Development",
-      skills: ["GCP", "Firebase", "CI/CD", "Python", "Flask", "FastF1", "React", "Typescript", "Plotly", "Anthropic Claude"],
+      skills: ["GCP", "Firebase", "CI/CD", "Python", "Flask", "FastF1", "React", "TypeScript", "Plotly", "Anthropic Claude"],
       wip: true,
     },
     {
       name: "F1Detect",
       description:
-        "YOLO-based object detection pipeline trained on a custom dataset to track Formula 1 cars in static and real-time footage, achieving over 90% accuracy across varying conditions.",
+        "YOLOv11 object detection pipeline trained on a mix of video-game and real-world footage to track Formula 1 cars in static and real-time footage, running at ~60 FPS on GPU.",
       link: "https://github.com/rpauls02/F1Detect",
       image: "projects/f1detect-preview-v6.png",
       category: "Object Detection",
@@ -42,7 +42,7 @@ export const siteConfig = {
     {
       name: "PhishingDet",
       description:
-        "Phishing classifier using CBOW embeddings trained on 18,000+ Enron emails, achieving 96% accuracy. Integrated persuasion-pattern detection alongside semantic classification.",
+        "Phishing classifier using CBOW word embeddings built from scratch in PyTorch, trained on 18,000+ emails. An MLP on the embeddings reached 96% accuracy with 94% phishing recall.",
       link: "https://github.com/rpauls02/PhishingDet",
       category: "Natural Language Processing",
       skills: ["Python", "NLTK", "Scikit", "PyTorch"],
@@ -50,7 +50,7 @@ export const siteConfig = {
     {
       name: "Face Cover Detection",
       description:
-        "Multiclass computer vision system comparing three CV pipelines to classify face mask status across 2,800+ images, with a custom CNN reaching 91% accuracy against real-world 'in the wild' testing.",
+        "Multiclass computer vision system comparing three CV pipelines to classify face mask status across 2,800+ images. A custom CNN reached 91% test accuracy, and a separate 'in the wild' test set showed where it struggles to generalise.",
       link: "https://github.com/rpauls02/Face-Cover-Detection",
       image: "projects/facecover-preview-v1.png",
       category: "Image Classification",
@@ -68,7 +68,7 @@ export const siteConfig = {
       name: "RaceSight (WIP)",
       description:
         "A robust detection system for motorsport vehicles in mainstream racing categories including Formula, Prototype and GT3.",
-      link: "https://github.com/rpauls02/RaceSight",
+      // link: "https://github.com/rpauls02/RaceSight", // repo is private: re-enable once public
       category: "Object Detection",
       skills: ["Python", "Roboflow", "YOLO", "OOAD"],
       wip: true,
@@ -94,7 +94,7 @@ export const siteConfig = {
       subjects1: "Advanced Databases, Data Structures and Algorithms",
       subjects2: "Systems Architecture, Operating Systems, Theory of Computation, Cloud Computing",
       subjects3: "Computer Vision, Machine Learning, Natural Language Processing",
-      subjects4: "Objected-oriented Analysis and Design",
+      subjects4: "Object-oriented Analysis and Design",
       skills: ["C++", "Haskell", "Java", "JavaScript", "Node.js", "NoSQL", "Python", "React", "SQL", "TypeScript", "YOLO"],
 
     },
