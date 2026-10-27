@@ -38,7 +38,16 @@ export const siteConfig = {
       description:
         "YOLOv11 object detection pipeline trained on a mix of video-game and real-world footage to track Formula 1 cars in static and real-time footage, reaching 0.945 mAP@50 on validation at ~60 FPS on GPU.",
       link: "https://github.com/rpauls02/F1Detect",
-      image: "projects/f1detect-preview-v6.png",
+      images: [
+        "projects/f1detect-01-real-hungary-single.jpg",
+        "projects/f1detect-02-synthetic-imola-multi.jpg",
+        "projects/f1detect-03-real-vegas-multi-night.jpg",
+        "projects/f1detect-04-synthetic-hungary-single.jpg",
+        "projects/f1detect-05-real-yasmarina-multi.jpg",
+        "projects/f1detect-06-synthetic-vegas-multi-night.jpg",
+        "projects/f1detect-07-synthetic-imola-single.jpg",
+        "projects/f1detect-08-real-hungary-multi.jpg",
+      ],
       category: "Object Detection",
       skills: ["Python", "Roboflow", "YOLO", "OpenCV", "PyTorch"],
     },
@@ -47,15 +56,24 @@ export const siteConfig = {
       description:
         "Phishing classifier using CBOW word embeddings built from scratch in PyTorch, trained on 18,000+ emails. An MLP on the embeddings reached 96% accuracy with 94% phishing recall.",
       link: "https://github.com/rpauls02/PhishingDet",
+      images: [
+        "projects/phishingdet-1-pipeline.png",
+        "projects/phishingdet-2-results.png",
+      ],
       category: "Natural Language Processing",
-      skills: ["Python", "NLTK", "Scikit", "PyTorch"],
+      skills: ["Python", "NLTK", "Scikit", "PyTorch", "Pandas", "NumPy"],
     },
     {
       name: "Face Cover Detection",
       description:
         "Multiclass computer vision system comparing three CV pipelines to classify face mask status across 2,800+ images. A custom CNN reached 91% test accuracy, and a separate 'in the wild' test set showed where it struggles to generalise.",
       link: "https://github.com/rpauls02/Face-Cover-Detection",
-      image: "projects/facecover-preview-v1.png",
+      images: [
+        "projects/facecover-1-samples.png",
+        "projects/facecover-2-imbalance.png",
+        "projects/facecover-3-results.png",
+        "projects/facecover-4-pipeline.png",
+      ],
       category: "Image Classification",
       skills: ["Python", "OpenCV", "Scikit", "PyTorch"],
     },
