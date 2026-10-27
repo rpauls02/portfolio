@@ -79,9 +79,43 @@ const hasWipProjects = hasProjects && siteConfig.projects.some((p) => p.wip);
                         this.querySelector('.accent-bar')?.style.setProperty('background-color', 'color-mix(in srgb, ${siteConfig.accentColor} 30%, transparent)');
                       `}
                     >
-                      {project.image && (
+                      {project.images && project.images.length > 1 ? (
+                        <div
+                          class="slideshow relative -mx-4 -mt-4 sm:-mx-5 sm:-mt-5 mb-3 w-[calc(100%+2rem)] sm:w-[calc(100%+2.5rem)] overflow-hidden"
+                          data-slideshow
+                        >
+                          {project.images.map((src, i) => (
+                            <img
+                              src={`${import.meta.env.BASE_URL}/${src}`.replace(/\/+/g, "/")}
+                              alt={`${project.name} screenshot ${i + 1} of ${project.images.length}`}
+                              loading={i === 0 ? "eager" : "lazy"}
+                              data-slide
+                              class={`${i === 0 ? "relative block w-full h-auto" : "absolute inset-0 w-full h-full object-contain"} transition-opacity duration-700`}
+                              style={`opacity: ${i === 0 ? 1 : 0};`}
+                            />
+                          ))}
+                          <span role="button" tabindex="0" aria-label={`Previous ${project.name} screenshot`} data-prev class="slide-nav left-2">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                          </span>
+                          <span role="button" tabindex="0" aria-label={`Next ${project.name} screenshot`} data-next class="slide-nav right-2">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+                          </span>
+                          <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 rounded-full bg-black/40 px-2.5 py-1.5">
+                            {project.images.map((_, i) => (
+                              <span
+                                role="button"
+                                tabindex="0"
+                                aria-label={`Show ${project.name} screenshot ${i + 1}`}
+                                data-dot={i}
+                                class="slide-dot block w-2 h-2 rounded-full cursor-pointer transition-colors duration-300"
+                                style={`background-color: ${i === 0 ? siteConfig.accentColor : "rgba(255,255,255,0.5)"}; --accent: ${siteConfig.accentColor};`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      ) : (project.image || project.images?.[0]) && (
                         <img
-                          src={`${import.meta.env.BASE_URL}/${project.image}`.replace(/\/+/g, "/")}
+                          src={`${import.meta.env.BASE_URL}/${project.image || project.images?.[0]}`.replace(/\/+/g, "/")}
                           alt={`${project.name} preview`}
                           class="-mx-4 -mt-4 sm:-mx-5 sm:-mt-5 mb-3 max-w-none w-[calc(100%+2rem)] sm:w-[calc(100%+2.5rem)] h-auto"
                         />
@@ -158,6 +192,35 @@ const hasWipProjects = hasProjects && siteConfig.projects.some((p) => p.wip);
 }
 
 <style>
+  .slide-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+  }
+  .slideshow:hover .slide-nav,
+  .slide-nav:focus-visible {
+    opacity: 1;
+  }
+  .slide-nav:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  @media (hover: none) {
+    .slide-nav {
+      opacity: 0.85;
+    }
+  }
   .filter-pill {
     padding: 0.375rem 0.875rem;
     border-radius: 9999px;
@@ -179,6 +242,72 @@ const hasWipProjects = hasProjects && siteConfig.projects.some((p) => p.wip);
 </style>
 
 <script>
+  // Project image slideshows: crossfade every 4s, pause on hover, dots to jump.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll<HTMLElement>("[data-slideshow]").forEach((show) => {
+    const slides = show.querySelectorAll<HTMLElement>("[data-slide]");
+    const dots = show.querySelectorAll<HTMLElement>("[data-dot]");
+    let current = 0;
+    let timer: number | undefined;
+    // Fetch the remaining slides in the background once the page has loaded,
+    // so a slide is never shown before its image has arrived.
+    const warm = () => slides.forEach((s) => s.setAttribute("loading", "eager"));
+    if (document.readyState === "complete") warm();
+    else window.addEventListener("load", warm, { once: true });
+    const go = (n: number) => {
+      current = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => (s.style.opacity = i === current ? "1" : "0"));
+      dots.forEach((d, i) =>
+        d.style.setProperty("background-color", i === current ? d.style.getPropertyValue("--accent") : "rgba(255,255,255,0.5)")
+      );
+    };
+    const start = () => {
+      if (reduceMotion) return;
+      stop();
+      timer = window.setInterval(() => go(current + 1), 4000);
+    };
+    const stop = () => window.clearInterval(timer);
+    dots.forEach((d) => {
+      const pick = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        go(Number(d.dataset.dot));
+      };
+      d.addEventListener("click", pick);
+      d.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") pick(e);
+      });
+    });
+    const manual = (step: number) => (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      go(current + step);
+    };
+    show.querySelectorAll<HTMLElement>("[data-prev],[data-next]").forEach((btn) => {
+      const handler = manual(btn.hasAttribute("data-prev") ? -1 : 1);
+      btn.addEventListener("click", handler);
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") handler(e);
+      });
+    });
+    // Swipe on touch screens; restart autoplay after a manual change.
+    let touchX: number | null = null;
+    show.addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; stop(); }, { passive: true });
+    show.addEventListener("touchend", (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 40) {
+        e.preventDefault();
+        go(current + (dx < 0 ? 1 : -1));
+      }
+      start();
+    });
+    show.addEventListener("mouseenter", stop);
+    show.addEventListener("mouseleave", start);
+    start();
+  });
+
   const container = document.getElementById("project-filters");
   const cards = document.querySelectorAll<HTMLElement>("[data-project-card]");
 

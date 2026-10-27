@@ -13,6 +13,8 @@ export const skillIcons: Record<string, string> = {
   "Node.js": "simple-icons:nodedotjs",
   Python: "simple-icons:python",
   PyTorch: "simple-icons:pytorch",
+  Pandas: "simple-icons:pandas",
+  NumPy: "simple-icons:numpy",
   Scikit: "simple-icons:scikitlearn",
   "C++": "simple-icons:cplusplus",
   Haskell: "simple-icons:haskell",
