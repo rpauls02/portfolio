@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "Robert Pauls",
   title: "Software Engineer",
+  description: "Robert Pauls, software engineer and Computer Science graduate building full-stack apps and machine learning systems.",
   tagline: "Computer Science graduate building full-stack apps and ML systems. Open to graduate software engineering and AI/ML roles.",
   accentColor: "#7777ff",
   cvUrl: "/cv.pdf",
