@@ -15,12 +15,13 @@ export const siteConfig = {
     "Software engineer experienced in building things end-to-end; from cloud infrastructure and backend APIs to polished frontend experiences. My projects span full-stack web development, machine learning, and computer vision, and I've shipped real systems to production on Google Cloud. Outside of code, I run a small PC repair business and follow Formula 1 closely enough that I built a statistics platform around it.",
     "On the web side, I'm most at home with React and TypeScript on the frontend, with Python or Node.js handling the backend. I've deployed production apps on Firebase and Google Cloud Run, set up CI/CD pipelines, and worked with both SQL and NoSQL databases depending on what the job needs.",
     "When I'm not writing code, I'm probably diagnosing someone's PC, reading about the latest GPU architecture, or watching a race and wondering why the strategy team made that call."],
-  skills: [
-    "AI/ML",
-    "Analysis & Design",
-    "Cloud Infrastructure",
-    "Full-stack Applications",
-    "Hardware",
+  skillCategories: [
+    { title: "Cloud", items: ["GCP", "Firebase", "Cloud Run", "Firestore"] },
+    { title: "Languages", items: ["Python", "TypeScript", "JavaScript", "Java", "C++", "SQL", "PHP"] },
+    { title: "Frameworks", items: ["React", "Flask", "Node.js", "Astro"] },
+    { title: "Data", items: ["MySQL", "Redis", "Pandas", "NumPy", "Plotly"] },
+    { title: "Artificial Intelligence", items: ["PyTorch", "YOLO", "Scikit", "OpenCV", "NLTK", "Roboflow", "Anthropic Claude"] },
+    { title: "DevOps", items: ["Docker", "CI/CD", "Linux", "Git"] },
   ],
   projects: [
     {
@@ -40,13 +41,12 @@ export const siteConfig = {
       link: "https://github.com/rpauls02/F1Detect",
       images: [
         "projects/f1detect-01-real-hungary-single.jpg",
-        "projects/f1detect-02-synthetic-imola-multi.jpg",
-        "projects/f1detect-03-real-vegas-multi-night.jpg",
-        "projects/f1detect-04-synthetic-hungary-single.jpg",
-        "projects/f1detect-05-real-yasmarina-multi.jpg",
-        "projects/f1detect-06-synthetic-vegas-multi-night.jpg",
-        "projects/f1detect-07-synthetic-imola-single.jpg",
-        "projects/f1detect-08-real-hungary-multi.jpg",
+        "projects/f1detect-02-synthetic-yasmarina-multi.jpg",
+        "projects/f1detect-03-real-imola-dense.jpg",
+        "projects/f1detect-07-pipeline.png",
+        "projects/f1detect-04-synthetic-imola-single.jpg",
+        "projects/f1detect-05-real-vegas-multi-night.jpg",
+        "projects/f1detect-06-synthetic-hungary-single.jpg",
       ],
       category: "Object Detection",
       skills: ["Python", "Roboflow", "YOLO", "OpenCV", "PyTorch"],
@@ -77,14 +77,14 @@ export const siteConfig = {
       category: "Image Classification",
       skills: ["Python", "OpenCV", "Scikit", "PyTorch"],
     },
-    /*{
+    {
       name: "VolunteerHub",
       description:
         "A full-stack volunteer management platform built from scratch with a custom PHP MVC framework, featuring role-based auth, volunteer sign-up, and staff shift scheduling. Containerised with Docker Compose across Apache, MySQL and Redis on a LAMP stack.",
       link: "https://github.com/rpauls02/Web-Development-Coursework",
       category: "Web Development",
       skills: ["PHP", "Twig", "MySQL", "Docker", "Apache", "Redis", "Composer", "Linux"],
-    },*/
+    },
     {
       name: "RaceSight (WIP)",
       description:
